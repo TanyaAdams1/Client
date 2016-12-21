@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 #QT       += webkitwidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,13 +17,17 @@ SOURCES += main.cpp\
     warning.cpp \
     createroom.cpp \
     login.cpp \
-    gui.cpp
+    gui.cpp \
+    message.cpp \
+    tcpsock.cpp
 
 HEADERS  += hall.h \
     warning.h \
     createroom.h \
     login.h \
-    gui.h
+    gui.h \
+    message.h \
+    tcpsock.h
 
 FORMS    += hall.ui \
     warning.ui \
