@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-#QT       += webkitwidgets
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui network widgets
 
 TARGET = werewolf
 TEMPLATE = app
@@ -38,12 +36,10 @@ FORMS    += hall.ui \
     createroom.ui \
     login.ui \
     gamewindow.ui \
-    icon/gamewindow.ui \
     dialog.ui
 
 RESOURCES += \
     myresource.qrc \
-    image.qrc
     image.qrc
 
 RC_FILE  += myico.rc
