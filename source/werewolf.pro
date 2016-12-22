@@ -4,11 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
-#QT       += webkitwidgets
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui network widgets
 
-TARGET = 20161211
+TARGET = werewolf
 TEMPLATE = app
 
 
@@ -18,6 +16,8 @@ SOURCES += main.cpp\
     createroom.cpp \
     login.cpp \
     gui.cpp \
+    gamewindow.cpp \
+    dialog.cpp \
     message.cpp \
     tcpsock.cpp
 
@@ -26,15 +26,20 @@ HEADERS  += hall.h \
     createroom.h \
     login.h \
     gui.h \
+    gamewindow.h \
+    dialog.h \
     message.h \
     tcpsock.h
 
 FORMS    += hall.ui \
     warning.ui \
     createroom.ui \
-    login.ui
+    login.ui \
+    gamewindow.ui \
+    dialog.ui
 
 RESOURCES += \
-    myresource.qrc
+    myresource.qrc \
+    image.qrc
 
 RC_FILE  += myico.rc
