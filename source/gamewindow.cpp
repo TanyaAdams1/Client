@@ -1,10 +1,10 @@
 #include "gamewindow.h"
-#include "ui_GameWindow.h"
+#include "ui_gamewindow.h"
 #include "gui.h"
 #include<QVector>
 #include <QDesktopServices>
 #include <QUrl>
-#include <Qpalette>
+#include <QPalette>
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GameWindow)
