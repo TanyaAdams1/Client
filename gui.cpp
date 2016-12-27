@@ -18,6 +18,13 @@ gui::gui(QObject *parent)
     QObject::connect(&w,&hall::enterroom,this,&gui::enterroom);
     QObject::connect(&w,&hall::openlogin,this,&gui::openlogin);
     QObject::connect(&w,&hall::openweb,this,&gui::openweb);
+    QObject::connect(&w,&hall::warning,this,&gui::WArning);
+
+    QObject::connect(&g,&GameWindow::prepared,this,&gui::gprepared);
+    QObject::connect(&g,&GameWindow::unprepared,this,&gui::gunprepared);
+    QObject::connect(&g,&GameWindow::goback,this,&gui::ggoback);
+    QObject::connect(&g,&GameWindow::exit,this,&gui::gexit);
+    QObject::connect(&g,&GameWindow::endturn,this,&gui::gendturn);
 }
 
 QPair<QString,int> gui::acquireServer(){
@@ -61,6 +68,7 @@ void gui::enterroom(const QString ip){
 
 void gui::enterroomok(){
     w.hide();
+    g.show();
 }
 
 void gui::openlogin(){
@@ -75,4 +83,91 @@ void gui::openweb(){
 
 void gui::hidehall(){
     w.hide();
+}
+
+void gui::WArning(){
+    warning();
+}
+
+
+void gui::showgame()
+{
+    g.show();
+}
+
+void gui::addplayer(int seat,int id)
+{
+    g.addplayer(seat-1,id);
+}
+void gui::myplayer(int seat, int id)
+{
+    g.myplayer(seat-1,id);
+}
+
+void gui::gprepared(int id)
+{
+    emit prepared(id);
+}
+void gui::gunprepared(int id)
+{
+    emit unprepared(id);
+}
+void gui::ggoback(int id)
+{
+    emit goback(id);
+    w.show();
+}
+void gui::gexit(int id)
+{
+    emit exit(id);
+}
+void gui::start(int role)
+{
+    g.start(role);
+}
+void gui::getmessage(int seat, QString str)
+{
+    g.getmessage(seat,str);
+}
+void gui::gspeak(int id,QString str)
+{
+    emit speak(id,str);
+}
+void gui::myturn()
+{
+    g.myturn();
+}
+void gui::gendturn()
+{
+    emit endturn();
+}
+
+void gui::gameover()
+{
+    g.gameover();
+}
+void gui::wolfwakeup()
+{
+    g.wolfwakeup();
+}
+
+void gui::wolfsleep()
+{
+    g.wolfsleep();
+}
+void gui::gchoice(int seat)
+{
+    emit choice(seat);
+}
+void gui::prophetwakeup()
+{
+    g.prophetwakeup();
+}
+void gui::prophetsleep()
+{
+    g.prophetsleep();
+}
+void gui::killed(int seat)
+{
+    g.killed(seat);
 }

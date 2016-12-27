@@ -32,6 +32,9 @@ login::login(QWidget *parent) :
 
     this->setFixedSize(this->width(), this->height());
 
+    ui->label->setAlignment(Qt::AlignCenter);
+    ui->label_2->setAlignment(Qt::AlignCenter);
+
 }
 
 login::~login()

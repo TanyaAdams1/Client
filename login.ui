@@ -95,6 +95,8 @@ font: 75 20pt &quot;Adobe Arabic&quot;;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(40, 60, 100);
+color: rgb(222, 222, 222);
+background-color: rgba(10, 10, 40, 200);
 font: 75 20pt &quot;Adobe Arabic&quot;;</string>
    </property>
    <property name="text">
@@ -111,7 +113,9 @@ font: 75 20pt &quot;Adobe Arabic&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">
+    <string notr="true">color: rgb(40, 60, 100);
+color: rgb(222, 222, 222);
+background-color: rgba(10, 10, 40, 200);
 font: 75 20pt &quot;Adobe Arabic&quot;;</string>
    </property>
    <property name="text">

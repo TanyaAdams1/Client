@@ -8,7 +8,7 @@ QT       += core gui
 #QT       += webkitwidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = 20161211
+TARGET = werewolf
 TEMPLATE = app
 
 
@@ -17,20 +17,25 @@ SOURCES += main.cpp\
     warning.cpp \
     createroom.cpp \
     login.cpp \
-    gui.cpp
+    gui.cpp \
+    gamewindow.cpp
 
 HEADERS  += hall.h \
     warning.h \
     createroom.h \
     login.h \
-    gui.h
+    gui.h \
+    gamewindow.h
 
 FORMS    += hall.ui \
     warning.ui \
     createroom.ui \
-    login.ui
+    login.ui \
+    gamewindow.ui
 
 RESOURCES += \
-    myresource.qrc
+    myresource.qrc \
+    image.qrc
+    image.qrc
 
 RC_FILE  += myico.rc

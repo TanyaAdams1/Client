@@ -93,7 +93,7 @@ border-width: 5px;</string>
     </attribute>
     <column>
      <property name="text">
-      <string>房间名</string>
+      <string>房间ID</string>
      </property>
      <property name="font">
       <font>
@@ -124,17 +124,17 @@ font: 75 14pt &quot;微软雅黑&quot;;</string>
      <string>用户信息：</string>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="1">
-      <widget class="QLabel" name="port">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
         <string>ip：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="port">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -157,8 +157,8 @@ font: 75 14pt &quot;微软雅黑&quot;;</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>-270</x>
-      <y>0</y>
+      <x>-260</x>
+      <y>50</y>
       <width>1550</width>
       <height>731</height>
      </rect>
@@ -313,28 +313,28 @@ font: 75 14pt &quot;微软雅黑&quot;;</string>
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>500</y>
-      <width>111</width>
-      <height>51</height>
+      <x>770</x>
+      <y>164</y>
+      <width>201</width>
+      <height>106</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255, 130);</string>
+     <string notr="true">background-color: rgba(30, 15, 15, 180);</string>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>TextLabel</string>
     </property>
    </widget>
    <zorder>label_3</zorder>
    <zorder>roomtableWidget</zorder>
-   <zorder>groupBox</zorder>
    <zorder>pushButton</zorder>
    <zorder>createButton</zorder>
-   <zorder>pushButton_2</zorder>
+   <zorder>label_4</zorder>
+   <zorder>groupBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

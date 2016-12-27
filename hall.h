@@ -37,6 +37,8 @@ signals:
 
     void openweb();
 
+    void warning();
+
 private slots:
     void on_action_Q_triggered();
 

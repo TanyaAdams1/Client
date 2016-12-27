@@ -36,17 +36,20 @@ hall::hall(QWidget *parent) :
     ui->roomtableWidget->horizontalHeader()->setFixedHeight(30);
 
     ui->pushButton->setStyleSheet("QPushButton{color: rgb(222, 222, 222);font: 75 14pt;border-color: rgba(15, 15, 80,130);background-color: rgba(20, 15, 135,130);border-width: 4px;border-style: outset;}"
-                                  "QPushButton:hover{background-color: rgba(25,20,140,130);border-color: rgba(17,18,85,130);}"
-                                  "QPushButton:pressed{border-style: inset;font: 75 14pt;  background-color: rgba(25,20,140,130);border-color: rgba(17,18,85,130);}");
+                                  "QPushButton:hover{background-color: rgba(25,20,140,180);border-color: rgba(17,18,85,180);}"
+                                  "QPushButton:pressed{border-style: inset;font: 75 14pt;  background-color: rgba(25,20,140,180);border-color: rgba(17,18,85,180);}");
     ui->createButton->setStyleSheet("QPushButton{color: rgb(222, 222, 222);font: 75 14pt;border-color: rgba(90, 12, 13,130);background-color: rgba(150, 25, 40,130);border-width: 4px;border-style: outset;}"
-                                    "QPushButton:hover{background-color: rgba(155,30,45,130);border-color: rgba(95,15,15,130);}"
-                                    "QPushButton:pressed{border-style: inset;font: 75 14pt;  background-color: rgba(155,30,45,130);border-color: rgba(95,15,15,130);}");
+                                    "QPushButton:hover{background-color: rgba(155,30,45,180);border-color: rgba(95,15,15,180);}"
+                                    "QPushButton:pressed{border-style: inset;font: 75 14pt;  background-color: rgba(155,30,45,180);border-color: rgba(95,15,15,180);}");
 
     ui->textEdit->setTextColor(QColor(255,255,255,200));
 
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMaximizeButtonHint);
 
     this->setFixedSize(this->width(), this->height());
+
+    ui->ip->setAlignment(Qt::AlignCenter);
+    ui->port->setAlignment(Qt::AlignCenter);
 
 }
 
@@ -117,6 +120,10 @@ void hall::getitem(QTableWidgetItem *item){
 void hall::on_pushButton_clicked()
 {
     int row=ui->roomtableWidget->rowCount();
+    if(row==0){
+        emit warning();
+    }
+    else{
     QString ip=ui->roomtableWidget->item(row-1,0)->text();
-    emit enterroom(ip);
+    emit enterroom(ip);}
 }
