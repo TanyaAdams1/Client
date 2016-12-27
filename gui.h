@@ -8,6 +8,8 @@
 #include "login.h"
 #include "createroom.h"
 #include "gamewindow.h"
+#include<QVector>
+#include<QPair>
 
 class gui :public QObject
 {
@@ -33,17 +35,16 @@ public:
     void hidehall();
 
     void showgame();//窗口出现
-    void addplayer(int seat, int id);//加入玩家
+    void flush(QVector<QPair<int,int>>,int);//加入玩家:改为接受列表
     void myplayer(int seat, int id);//自身信息
-    void start(int role);//开始游戏，告知身份
-    void getmessage(int seat,QString str);//收取发言并显示
+    void role(int role);//开始游戏，告知身份
+    void showmessage(int seat,QString str);//收取发言并显示
     void myturn();//开始发言
-    void wolfwakeup();//狼人起床，自带提示
-    void wolfsleep();//狼人睡觉
-    void prophetwakeup();//预言家起床，自带提示
-    void prophetsleep();//预言家睡觉
-    void gameover();//游戏结束，自带提示
-    void killed(int);//自带发言（...号玩家已死亡）
+
+    int decide(QVector<int>,bool);//选警长和投票通用，本来这两个就没区别吧
+    bool choose();
+    void endturn();//自爆时强制结束对话
+
 
 signals:
 
@@ -51,15 +52,14 @@ signals:
 
     void enterRoom(const QString ip);
 
-    void prepared(int);//准备
-    void unprepared(int);//取消准备
-    void goback(int);//返回大厅
-    void exit(int);//退出游戏
-    void speak(int,QString);//发言
-    void endturn();//结束发言
-    void choice(int);//选择一个人或弃权（0）
+    void ready();//准备
+    void cancel();//取消准备
+    void quit();//返回大厅
+    void speak(QString);//发言
+    void endspeaking();//结束发言
+    void explode();//自爆
 
-private slots:
+private:
 
     void openlogin();
 
@@ -73,8 +73,6 @@ private slots:
 
     void WArning();
 
-private:
-
     hall w;
 
     login l;
@@ -82,13 +80,14 @@ private:
     createroom c;
 
     GameWindow g;
-    void gprepared(int id);
-    void gunprepared(int id);
-    void ggoback(int id);
-    void gexit(int id);
-    void gspeak(int, QString);
+    void gprepared();
+    void gunprepared();
+    void ggoback();
+
+    void gspeak(QString);
     void gendturn();
     void gchoice(int);
+    void gexplode();
 
 };
 

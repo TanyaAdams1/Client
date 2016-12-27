@@ -39,7 +39,7 @@ signals:
 
     void warning();
 
-private slots:
+private:
     void on_action_Q_triggered();
 
     void on_action_J_triggered();
@@ -54,8 +54,6 @@ private slots:
 
     void on_pushButton_clicked();
 
-
-private:
     Ui::hall *ui;
 };
 

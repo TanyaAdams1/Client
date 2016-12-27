@@ -20,10 +20,9 @@ public:
 signals:
     void Login(const QPair<QString,int> pair);
 
-private slots:
+private:
     void on_pushButton_clicked();
 
-private:
     QPair<QString,int> pair;
     Ui::login *ui;
 };

@@ -23,11 +23,9 @@ signals:
 
     void newroom(const QPair<QString,int> pair);
 
-private slots:
+private:
 
     void on_pushButton_clicked();
-
-private:
 
     Ui::createroom *ui;
 
