@@ -26,14 +26,14 @@ private:
     void handleMessage(Message);
     void genFeedback(Message);
 
-    void Newroom(const QPair<QString,int> pair);
-    void enterRoom(const QString ip);
-    void ready();
-    void cancel();
-    void quit();
-    void speak(QString);
-    void endspeaking();
-    void explode();
+    void Newroom(const int number);
+    void enterRoom(const int id);
+    void ready();//准备
+    void cancel();//取消准备
+    void quit();//返回大厅
+    void speak(QString);//发言
+    void endspeaking();//结束发言
+    void explode();//自爆
 };
 
 #endif // CORE_H

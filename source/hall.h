@@ -39,7 +39,7 @@ signals:
 
     void warning();
 
-private:
+private slots:
     void on_action_Q_triggered();
 
     void on_action_J_triggered();
@@ -53,7 +53,7 @@ private:
     void getitem(QTableWidgetItem*item);
 
     void on_pushButton_clicked();
-
+private:
     Ui::hall *ui;
 };
 

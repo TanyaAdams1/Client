@@ -13,24 +13,25 @@ Core::Core(QObject *parent) : QObject(parent)
     connect(&G,&gui::explode,this,&Core::explode);
 }
 void Core::connectToServer(){
-    gui.showlogin();
-    QPair<QString,int> server=gui.acquireServer();
+    QPair<QString,int> server=G.acquireServer();
     socket=new TcpSock(0,server.first,server.second);
     connect(socket,&TcpSock::emitMessage,this,&Core::handleMessage);
     pos=HALL;
-    gui.showHall();
+    G.showHall();
     thread=new QThread();
     socket->moveToThread(thread);
     thread->start();
     connect(socket,&TcpSock::destroyed,thread,&QThread::quit);
     connect(thread,&QThread::finished,thread,&QThread::deleteLater);
+    connect(thread,&QThread::destroyed,this,&Core::onNetworkError);
 }
 void Core::sendEmptyMessage(int t, int st, int rt, int ri){
     Message *msg=new Message(t,st,rt,ri,2,id);
     QCoreApplication::postEvent(socket,msg);
 }
 void Core::onNetworkError(){
-    gui.hidehall();
+    G.hidehall();
+    G.warning();
     pos=LOGIN;
     connectToServer();
 }
@@ -38,6 +39,9 @@ void Core::handleMessage(Message msg){
     if(msg.getType()==0){
         switch(msg.getSubtype()){
         case 2:
+            if(msg.getArgument().isEmpty())
+                return;
+            break;
         case 3:
             if(msg.getArgument().isEmpty())
                 return;
@@ -50,20 +54,24 @@ void Core::handleMessage(Message msg){
         case 1:
             if(msg.getArgument().isEmpty())
                 return;
-            gui.role(msg.getArgument()[0]);
+            G.role(msg.getArgument()[0]);
             break;
         case 2:
         case 3:
         case 4:
         case 10:
-            gui.showmessage(-1,msg.getDetail());
+            G.showmessage(-1,msg.getDetail());
             break;
         case 5:
         case 12:
-            gui.myturn();
+            G.myturn();
             break;
         case 19:
-            gui.endturn();
+            if(msg.getArgument().isEmpty())
+                return;
+            if(msg.getArgument()[0])
+                G.endturn();
+            break;
         default:
             genFeedback(msg);
         }
@@ -75,23 +83,23 @@ void Core::handleMessage(Message msg){
                 return;
             if(msg.getArgument()[0]){
                 roomid=msg.getSenderid();
-                gui.hidehall();
-                gui.showgame();
+                G.hidehall();
+                G.showgame();
                 sendEmptyMessage(2,6,2,roomid);
                 pos=ROOM;
             }
             else
-                gui.warning();
+                G.warning();
             break;
         case 3:
             if(msg.getArgument().isEmpty())
                 return;
             if(msg.getArgument()[0]){
                 pos=HALL;
-                gui.showHall();
+                G.showHall();
             }
             else
-                gui.warning();
+                G.warning();
             break;
         case 4:
             pos=GAME;
@@ -99,7 +107,17 @@ void Core::handleMessage(Message msg){
         case 5:
             pos=ROOM;
         case 6:
-
+            if(msg.getArgument().isEmpty())
+                return;
+            int cap=msg.getArgument()[0],num=msg.getArgument()[1];
+            QVector<QPair<int,int> >players;
+            for(int i=0;i<num;i++){
+                QPair<int,int> tmp;
+                tmp.first=msg.getArgument()[i*2+2];
+                tmp.second=msg.getArgument()[i*2+3];
+                players.append(tmp);
+            }
+            G.flush(players,cap);
         }
     }
 }
@@ -108,31 +126,34 @@ void Core::genFeedback(Message msg){
         return;
     int st=msg.getSubtype();
     bool allowGiveup=false;
-    if(st==8||st==14||st=18)
+    if(st==8||st==14||st==18)
         allowGiveup=true;
     if(st==5||st==11){
         Message *feedback=new Message(msg.getType(),msg.getSubtype(),msg.getSenderType(),msg.getSenderid(),1,id);
-        feedback->addArgument(gui.choose());
+        feedback->addArgument(G.choose());
         QCoreApplication::postEvent(socket,feedback);
     }
     else if(st==15){
         Message *feedback=new Message(msg.getType(),msg.getSubtype(),msg.getSenderType(),msg.getSenderid(),1,id);
-        feedback->addArgument(gui.decide(msg.getArgument(),allowGiveup));
-        feedback->addArgument(gui.choose());
+        feedback->addArgument(G.decide(msg.getArgument(),allowGiveup));
+        feedback->addArgument(G.choose());
         QCoreApplication::postEvent(socket,feedback);
     }
     else{
-        int ret=gui.decide(msg.getArgument(),allowGiveup);
+        int ret=G.decide(msg.getArgument(),allowGiveup);
         Message *feedback=new Message(msg.getType(),msg.getSubtype(),msg.getSenderType(),msg.getSenderid(),1,id);
         feedback->addArgument(ret);
         QCoreApplication::postEvent(socket,feedback);
     }
 }
-void Core::Newroom(const QPair<QString, int> pair){
-
+void Core::Newroom(const int number){
+    qDebug()<<"Creating new room....";
+    Message *msg=new Message(0,1,0,0,1,id);
+    msg->addArgument(number);
+    QCoreApplication::postEvent(socket,msg);
 }
-void Core::enterRoom(const QString ip){
-
+void Core::enterRoom(const int id){
+    sendEmptyMessage(2,0,2,id);
 }
 void Core::ready(){
     sendEmptyMessage(2,1,2,roomid);
@@ -155,4 +176,7 @@ void Core::endspeaking(){
     Message *msg=new Message(2,7,2,roomid);
     msg->addArgument(1);
     QCoreApplication::postEvent(socket,msg);
+}
+void Core::explode(){
+    sendEmptyMessage(1,19,2,roomid);
 }

@@ -32,7 +32,7 @@ public:
 
     void hidehall();
 
-    void flushroom(QVector<QVector<int>>);
+    void flushroom(QVector<QVector<int> >);
 
     void showgame();//窗口出现
     void flush(QVector<QPair<int,int> >,int);//加入玩家:改为接受列表
@@ -60,6 +60,7 @@ signals:
     void explode();//自爆
 
 private:
+
 
     void openlogin();
 

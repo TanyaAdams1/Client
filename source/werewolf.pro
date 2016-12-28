@@ -40,7 +40,6 @@ FORMS    += hall.ui \
     createroom.ui \
     login.ui \
     gamewindow.ui \
-    icon/gamewindow.ui \
     dialog.ui
 
 RESOURCES += \

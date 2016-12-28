@@ -28,7 +28,6 @@ TcpSock::TcpSock(QObject *parent, QString ip, int port)
 }
 
 void TcpSock::emitError(){
-    this->deleteLater();
     Message message(0,0,0,0,1,id);
     message.setDetail(socket.errorString());
     emit emitMessage(message);
@@ -49,7 +48,7 @@ bool TcpSock::event(QEvent *e){
     if(e->type()!=(QEvent::Type)2333)
         return QObject::event(e);
     Message tmp=*(Message *)e;
-    if(tmp.getReceiverType()==1&&tmp.getReceiverid()==id){
+    if(tmp.getSenderType()==1){
         qDebug()<<"start writing";
         QByteArray buff;
         QDataStream out(&buff,QIODevice::WriteOnly);
