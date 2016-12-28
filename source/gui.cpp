@@ -28,6 +28,7 @@ gui::gui(QObject *parent)
 }
 
 QPair<QString,int> gui::acquireServer(){
+    l.exec();
     return l.getpair();
 }
 
