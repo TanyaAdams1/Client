@@ -24,6 +24,7 @@ void Core::connectToServer(){
     connect(socket,&TcpSock::destroyed,thread,&QThread::quit);
     connect(thread,&QThread::finished,thread,&QThread::deleteLater);
     connect(thread,&QThread::destroyed,this,&Core::onNetworkError);
+    sendEmptyMessage(0,2,0,0);
 }
 void Core::sendEmptyMessage(int t, int st, int rt, int ri){
     Message *msg=new Message(t,st,rt,ri,2,id);
@@ -41,11 +42,13 @@ void Core::handleMessage(Message msg){
         case 2:
             if(msg.getArgument().isEmpty())
                 return;
+            flushRoom(msg.getArgument());
             break;
         case 3:
             if(msg.getArgument().isEmpty())
                 return;
             id=msg.getArgument()[0];
+            qDebug()<<"id:"<<id;
             break;
         }
     }
@@ -109,15 +112,7 @@ void Core::handleMessage(Message msg){
         case 6:
             if(msg.getArgument().isEmpty())
                 return;
-            int cap=msg.getArgument()[0],num=msg.getArgument()[1];
-            QVector<QPair<int,int> >players;
-            for(int i=0;i<num;i++){
-                QPair<int,int> tmp;
-                tmp.first=msg.getArgument()[i*2+2];
-                tmp.second=msg.getArgument()[i*2+3];
-                players.append(tmp);
-            }
-            G.flush(players,cap);
+            flushPlayer(msg.getArgument());
         }
     }
 }
@@ -147,7 +142,6 @@ void Core::genFeedback(Message msg){
     }
 }
 void Core::Newroom(const int number){
-    qDebug()<<"Creating new room....";
     Message *msg=new Message(0,1,0,0,1,id);
     msg->addArgument(number);
     QCoreApplication::postEvent(socket,msg);
@@ -179,4 +173,30 @@ void Core::endspeaking(){
 }
 void Core::explode(){
     sendEmptyMessage(1,19,2,roomid);
+}
+void Core::flushPlayer(QVector<int> player){
+    qDebug()<<"flushing player...";
+    int cap=player[0],num=player[1];
+    QVector<QPair<int,int> >players;
+    for(int i=0;i<num;i++){
+        QPair<int,int> tmp;
+        tmp.first=player[i*2+2];
+        tmp.second=player[i*2+3];
+        players.append(tmp);
+    }
+    qDebug()<<"players:"<<players.size();
+    G.flush(players,cap);
+}
+void Core::flushRoom(QVector<int> rooms){
+    qDebug()<<"flushing room...";
+    int num=rooms[0];
+    QVector<QVector<int>> roominfo;
+    for(int i=0;i<num;i++){
+        QVector<int> tmp;
+        tmp.append(rooms[i*3+1]);
+        tmp.append(rooms[i*3+2]);
+        tmp.append(rooms[i*3+3]);
+        roominfo.append(tmp);
+    }
+    G.flushroom(roominfo);
 }

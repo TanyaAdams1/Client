@@ -25,6 +25,8 @@ private:
     void onNetworkError();
     void handleMessage(Message);
     void genFeedback(Message);
+    void flushRoom(QVector<int>);
+    void flushPlayer(QVector<int>);
 
     void Newroom(const int number);
     void enterRoom(const int id);
