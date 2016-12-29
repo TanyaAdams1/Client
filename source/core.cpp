@@ -98,6 +98,7 @@ void Core::handleMessage(Message msg){
             if(msg.getArgument().isEmpty())
                 return;
             if(msg.getArgument()[0]){
+                G.back(true);
                 pos=HALL;
                 G.showHall();
             }
