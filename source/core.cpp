@@ -185,7 +185,7 @@ void Core::flushPlayer(QVector<int> player){
         players.append(tmp);
     }
     qDebug()<<"players:"<<players.size();
-    G.flush(players,cap,9);
+    G.flush(players,cap);
 }
 void Core::flushRoom(QVector<int> rooms){
     qDebug()<<"flushing room...";
