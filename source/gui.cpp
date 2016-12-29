@@ -104,9 +104,8 @@ void gui::showgame()
 
 void gui::flush(QVector<QPair<int, int> > vect, int prepared)
 {
-    QVector<QPair<int,int>>::iterator i;
-    for(i=vect.begin();i!=vect.end();i++){
-    g.addplayer(i->first,i->second);}
+    for(int i=0;i<vect.size();i++){
+    g.addplayer(vect[i].first,vect[i].second);}
     g.showprepared(prepared);
 }
 void gui::myplayer(int seat, int id)

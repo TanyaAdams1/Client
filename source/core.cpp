@@ -183,6 +183,8 @@ void Core::flushPlayer(QVector<int> player){
         tmp.first=player[i*2+2];
         tmp.second=player[i*2+3];
         players.append(tmp);
+        if(tmp.second==id)
+            G.myplayer(tmp.first,tmp.second);
     }
     qDebug()<<"players:"<<players.size();
     G.flush(players,cap);
