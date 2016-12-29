@@ -44,6 +44,7 @@ public:
     int decide(QVector<int>,bool);//选警长和投票通用，本来这两个就没区别吧
     bool choose();
     void endturn();//自爆时强制结束对话
+    void back(bool);//返回大厅
 
 
 signals:

@@ -101,7 +101,10 @@ void gui::showgame()
 {
     g.show();
 }
-
+void gui::back(bool permission)
+{
+    g.back(permission);
+}
 void gui::flush(QVector<QPair<int, int> > vect, int prepared,int sum)
 {
     QVector<QPair<int,int>>::iterator i;
