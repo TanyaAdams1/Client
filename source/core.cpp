@@ -176,18 +176,18 @@ void Core::explode(){
 }
 void Core::flushPlayer(QVector<int> player){
     qDebug()<<"flushing player...";
-    int cap=player[0],num=player[1];
+    int cap=player[0],num=player[1],ready=player[2];
     QVector<QPair<int,int> >players;
     for(int i=0;i<num;i++){
         QPair<int,int> tmp;
-        tmp.first=player[i*2+2];
-        tmp.second=player[i*2+3];
+        tmp.first=player[i*2+3];
+        tmp.second=player[i*2+4];
         players.append(tmp);
         if(tmp.second==id)
             G.myplayer(tmp.first,tmp.second);
     }
     qDebug()<<"players:"<<players.size();
-    G.flush(players,cap);
+    G.flush(players,ready,cap);
 }
 void Core::flushRoom(QVector<int> rooms){
     qDebug()<<"flushing room...";
