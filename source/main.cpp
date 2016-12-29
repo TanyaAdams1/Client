@@ -1,4 +1,3 @@
-#include<QVector>
 #include "hall.h"
 #include "login.h"
 #include <QApplication>

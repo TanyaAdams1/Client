@@ -1535,6 +1535,10 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>游戏(&amp;G)</string>
     </property>
+    <addaction name="actionQingchu"/>
+    <addaction name="actionSousuo"/>
+    <addaction name="separator"/>
+    <addaction name="actionTuichu_2"/>
    </widget>
    <widget class="QMenu" name="menu_H">
     <property name="title">
@@ -1563,6 +1567,26 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>百科</string>
+   </property>
+  </action>
+  <action name="actionQingchu">
+   <property name="text">
+    <string>清除记录</string>
+   </property>
+  </action>
+  <action name="actionSousuo">
+   <property name="text">
+    <string>搜索发言</string>
+   </property>
+  </action>
+  <action name="actionTuichu">
+   <property name="text">
+    <string>tuichu</string>
+   </property>
+  </action>
+  <action name="actionTuichu_2">
+   <property name="text">
+    <string>退出游戏</string>
    </property>
   </action>
  </widget>

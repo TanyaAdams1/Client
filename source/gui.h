@@ -35,7 +35,7 @@ public:
     void flushroom(QVector<QVector<int> >);
 
     void showgame();//窗口出现
-    void flush(QVector<QPair<int,int> >,int);//加入玩家:改为接受列表
+    void flush(QVector<QPair<int,int> >,int,int);//加入玩家:改为接受列表
     void myplayer(int seat, int id);//自身信息
     void role(int role);//开始游戏，告知身份
     void showmessage(int seat,QString str);//收取发言并显示
@@ -93,4 +93,3 @@ private:
 };
 
 #endif // GUI_H
-
