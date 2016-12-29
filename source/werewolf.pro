@@ -14,14 +14,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     gamewindow.cpp \
-    gui.cpp
+    gui.cpp \
+    search.cpp
 
 HEADERS  += \
     gamewindow.h \
-    gui.h
+    gui.h \
+    search.h
 
 FORMS    += \
-    gamewindow.ui
+    gamewindow.ui \
+    search.ui
 
 RESOURCES += \
     image.qrc

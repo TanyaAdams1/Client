@@ -6,6 +6,7 @@
 #include <QUrl>
 #include <Qpalette>
 #include <QColorDialog>
+#include <QMessageBox>
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GameWindow)
@@ -90,8 +91,27 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(ui->pushButton_20,&QPushButton::clicked,this,&GameWindow::exploded);
     connect(ui->pushButton_14,&QPushButton::clicked,ui->textEdit_2,&QTextEdit::clear);
     connect(ui->pushButton_22,&QPushButton::clicked,this,&GameWindow::setcolor);
+    connect(ui->pushButton_21,&QPushButton::clicked,this,&GameWindow::searchfor);
+    connect(&s,&search::findfor,this,&GameWindow::show_text);
 }
 
+
+void GameWindow::show_text(QString findtext)
+{
+    /*QTextCursor cursor=this->ui->textEdit_2->textCursor();
+    cursor.movePosition(QTextCursor::Start,QTextCursor::MoveAnchor,1);
+    ui->textEdit_2->append(findtext);*/
+    if(ui->textEdit_2->find(findtext))
+        {
+            QPalette palette = ui->textEdit->palette();
+            palette.setColor(QPalette::Highlight,palette.color(QPalette::Active,QPalette::Highlight));
+            ui->textEdit_2->setPalette(palette);
+        }
+        else
+        {
+            QMessageBox::information(this,tr("注意"),tr("没有找到内容"),QMessageBox::Ok);
+        }
+}
 
 GameWindow::~GameWindow()
 {
@@ -447,6 +467,10 @@ bool GameWindow::officerdecide()
 void GameWindow::showprepared(int prepared, int sum)
 {
     preparation->setText(tr("已有%1/%2人准备了").arg(prepared).arg(sum));
+}
+void GameWindow::searchfor()
+{
+    s.show();
 }
 
 /*int GameWindow::prophet(QVector<int> player)

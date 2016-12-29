@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QVector>
 #include<QPair>
+#include"search.h"
 namespace Ui {
 class GameWindow;
 }
@@ -75,6 +76,9 @@ private:
     void chooseyes();
     void chooseno();
     void exploded();
+    void searchfor();
+    search s;
+    void show_text(QString findtext);
 };
 
 #endif // GameWindow_H
