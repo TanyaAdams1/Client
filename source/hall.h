@@ -27,6 +27,8 @@ public:
 
     void removeall();
 
+    void closehall();
+
 signals:
 
     void createbutton_clicked();
@@ -39,7 +41,7 @@ signals:
 
     void warning();
 
-private:
+private slots:
     void on_action_Q_triggered();
 
     void on_action_J_triggered();
@@ -54,7 +56,10 @@ private:
 
     void on_pushButton_clicked();
 
+    void timerDone();
+private:
     Ui::hall *ui;
+    double i;
 };
 
 #endif // HALL_H

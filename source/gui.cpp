@@ -9,7 +9,6 @@
 #include <QUrl>
 
 
-
 gui::gui(QObject *parent)
     :QObject(parent)
 {
@@ -25,6 +24,10 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::goback,this,&gui::ggoback);
     QObject::connect(&g,&GameWindow::endturn,this,&gui::gendturn);
     QObject::connect(&g,&GameWindow::explode,this,&gui::gexplode);
+}
+
+void gui::closehall(){
+    w.closehall();
 }
 
 QPair<QString,int> gui::acquireServer(){

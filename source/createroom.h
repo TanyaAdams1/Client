@@ -23,10 +23,11 @@ signals:
 
     void newroom(const int number);
 
-private:
+private slots:
 
     void on_pushButton_clicked();
 
+private:
     Ui::createroom *ui;
 
     int Number;

@@ -7,13 +7,13 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-/*    gui b;
-    b.showlogin();
-    b.warning();
-    b.addroom("gking","3/8");
+    gui b;
+//    b.showlogin();
+
+
     b.showHall();
-    b.addroom("gking301","3/80");
-*/
+
+/*
     gui maingui;
 
     maingui.showgame();
@@ -31,6 +31,6 @@ int main(int argc, char *argv[])
     vect<<2<<5;
     bool v=maingui.choose();
     qDebug("%d",v);
-
+*/
     return a.exec();
 }

@@ -35,6 +35,7 @@ login::login(QWidget *parent) :
     ui->label->setAlignment(Qt::AlignCenter);
     ui->label_2->setAlignment(Qt::AlignCenter);
 
+    ui->pushButton->setDefault(1);
 }
 
 login::~login()
