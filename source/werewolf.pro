@@ -18,20 +18,23 @@ SOURCES += main.cpp\
     createroom.cpp \
     login.cpp \
     gui.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    music.cpp
 
 HEADERS  += hall.h \
     warning.h \
     createroom.h \
     login.h \
     gui.h \
-    gamewindow.h
+    gamewindow.h \
+    music.h
 
 FORMS    += hall.ui \
     warning.ui \
     createroom.ui \
     login.ui \
-    gamewindow.ui
+    gamewindow.ui \
+    music.ui
 
 RESOURCES += \
     myresource.qrc \

@@ -454,7 +454,7 @@ background-color: rgb(25, 15, 15);</string>
   </action>
   <action name="action_3">
    <property name="text">
-    <string>设置音量(&amp;V)</string>
+    <string>播放设置(&amp;V)</string>
    </property>
   </action>
  </widget>
