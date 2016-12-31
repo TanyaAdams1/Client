@@ -34,13 +34,16 @@ void TcpSock::emitError(){
     this->deleteLater();
 }
 void TcpSock::handleInput(){
-    Message message;
-    io.startTransaction();
-    io>>message;
-    io.commitTransaction();
-    qDebug()<<"Got message";
-    qDebug()<<"Type:"<<message.getType()<<"\tSubType:"<<message.getSubtype();
-    emit emitMessage(message);
+    while(socket.bytesAvailable()){
+        Message message;
+        io.startTransaction();
+        io>>message;
+        if(!io.commitTransaction())
+            return;
+        qDebug()<<"Got message";
+        qDebug()<<"Type:"<<message.getType()<<"\tSubType:"<<message.getSubtype();
+        emit emitMessage(message);
+    }
 }
 bool TcpSock::event(QEvent *e){
     if(e->type()!=(QEvent::Type)2333)
@@ -50,6 +53,10 @@ bool TcpSock::event(QEvent *e){
     QDataStream out(&buff,QIODevice::WriteOnly);
     out<<tmp;
     socket.write(buff);
+    while(socket.bytesToWrite()){
+        socket.flush();
+        socket.waitForBytesWritten();
+    }
     return true;
 }
 int TcpSock::getID(){
