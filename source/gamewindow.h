@@ -25,13 +25,13 @@ public:
     void getmessage(int seat,QString str);//0表示上帝
     void myturn();
     void endturn();//可以内部执行，但考虑到倒计时等扩展，写为公有。
-    int vote(QVector<int>);
+    int vote(QVector<int>,bool);
     bool officercandidate();//传递警徽也用vote（），点击自己头像即为撕毁
-    bool officerdecide();//警长决定发言方向。询问是否警左，1警左，0警右
-    int poison(QVector<int> player);
     void back(bool);
     void showprepared(int,int);
     ~GameWindow();
+    //bool officerdecide();//警长决定发言方向。询问是否警左，1警左，0警右
+    //int poison(QVector<int> player);
     //int wolfsturn(QVector<int> player);
     //bool medicine();
     //int prophet(QVector<int> player);//预言家出场，验人结果用字符串告知

@@ -1480,13 +1480,13 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
-   <zorder>pushButton_21</zorder>
-   <zorder>pushButton_19</zorder>
-   <zorder>pushButton_13</zorder>
-   <zorder>pushButton_15</zorder>
    <zorder>pushButton_20</zorder>
+   <zorder>pushButton_19</zorder>
+   <zorder>pushButton_15</zorder>
    <zorder>pushButton_14</zorder>
+   <zorder>pushButton_21</zorder>
    <zorder>pushButton_22</zorder>
+   <zorder>pushButton_13</zorder>
    <zorder>pushButton</zorder>
    <zorder>label</zorder>
    <zorder>pushButton_17</zorder>
