@@ -31,6 +31,7 @@ void Core::sendEmptyMessage(int t, int st, int rt, int ri){
     QCoreApplication::postEvent(socket,msg);
 }
 void Core::onNetworkError(){
+    G.back(true);
     G.hidehall();
     G.warning();
     pos=LOGIN;
