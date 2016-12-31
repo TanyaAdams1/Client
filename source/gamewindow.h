@@ -28,16 +28,15 @@ public:
     int vote(QVector<int>);
     bool officercandidate();//传递警徽也用vote（），点击自己头像即为撕毁
     bool officerdecide();//警长决定发言方向。询问是否警左，1警左，0警右
-    int wolfsturn(QVector<int> player);
-    bool medicine();
     int poison(QVector<int> player);
-    int prophet(QVector<int> player);//预言家出场，验人结果用字符串告知
-    int hunter(QVector<int>);//猎人死亡，发动技能
     void back(bool);
-    //void gameover();
     void showprepared(int,int);
     ~GameWindow();
-
+    //int wolfsturn(QVector<int> player);
+    //bool medicine();
+    //int prophet(QVector<int> player);//预言家出场，验人结果用字符串告知
+    //int hunter(QVector<int>);//猎人死亡，发动技能
+    //void gameover();
 signals:
     void speak(int, QString);//回车发送信息待实现
     void prepared();
@@ -45,7 +44,8 @@ signals:
     void goback();
     void explode();//自爆
     void end();//结束发言
-
+protected:
+    bool eventFilter(QObject *obj, QEvent *e);
 private:
     void setcolor();
     void on_actionChakan_triggered();

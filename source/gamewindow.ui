@@ -153,6 +153,9 @@
       <height>201</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(0, 0, 0, 150);</string>
     </property>
@@ -899,7 +902,7 @@ font: 10pt &quot;Algerian&quot;;
    <widget class="QFrame" name="frame_9">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>360</x>
       <y>460</y>
       <width>111</width>
       <height>131</height>
@@ -1264,6 +1267,9 @@ font: 10pt &quot;Algerian&quot;;
       <height>21</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgba(0, 0, 0, 150);</string>
     </property>
@@ -1301,22 +1307,6 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>ID:1234</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_18">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>190</y>
-      <width>101</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>记事本</string>
-    </property>
-    <property name="default">
-     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_19">
@@ -1490,13 +1480,12 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
-   <zorder>pushButton_18</zorder>
-   <zorder>pushButton_15</zorder>
+   <zorder>pushButton_21</zorder>
    <zorder>pushButton_19</zorder>
+   <zorder>pushButton_13</zorder>
+   <zorder>pushButton_15</zorder>
    <zorder>pushButton_20</zorder>
    <zorder>pushButton_14</zorder>
-   <zorder>pushButton_13</zorder>
-   <zorder>pushButton_21</zorder>
    <zorder>pushButton_22</zorder>
    <zorder>pushButton</zorder>
    <zorder>label</zorder>
@@ -1537,6 +1526,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionQingchu"/>
     <addaction name="actionSousuo"/>
+    <addaction name="actionChangecolor"/>
     <addaction name="separator"/>
     <addaction name="actionTuichu_2"/>
    </widget>
@@ -1571,12 +1561,12 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionQingchu">
    <property name="text">
-    <string>清除记录</string>
+    <string>清除记录(&amp;C)</string>
    </property>
   </action>
   <action name="actionSousuo">
    <property name="text">
-    <string>搜索发言</string>
+    <string>搜索发言(&amp;S)</string>
    </property>
   </action>
   <action name="actionTuichu">
@@ -1586,7 +1576,12 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionTuichu_2">
    <property name="text">
-    <string>退出游戏</string>
+    <string>退出游戏(&amp;E)</string>
+   </property>
+  </action>
+  <action name="actionChangecolor">
+   <property name="text">
+    <string>更改文字颜色(&amp;W)</string>
    </property>
   </action>
  </widget>

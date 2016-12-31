@@ -1,12 +1,15 @@
 #include "gamewindow.h"
-#include "ui_gamewindow.h"
+#include "ui_GameWindow.h"
 #include "gui.h"
 #include<QVector>
 #include <QDesktopServices>
 #include <QUrl>
-#include <QPalette>
+#include <Qpalette>
 #include <QColorDialog>
 #include <QMessageBox>
+#include<QEvent>
+#include<QKeyEvent>
+
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GameWindow)
@@ -15,9 +18,8 @@ GameWindow::GameWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMaximizeButtonHint);
     this->setFixedSize(this->width(),this->height());
-    ui->textEdit->setTextColor(Qt::white);
+    ui->textEdit->setTextColor(Qt::red);
     ui->statusBar->showMessage(tr("欢迎加入游戏！"),2000);
-
     ui->statusBar->addPermanentWidget(preparation);
     ui->textEdit_2->setTextColor(Qt::red);
     label[0]=ui->label_1;
@@ -66,11 +68,14 @@ GameWindow::GameWindow(QWidget *parent) :
     ui->pushButton_23->setVisible(false);
     ui->pushButton_24->setVisible(false);
     ui->pushButton_19->setVisible(false);
+    ui->textEdit->installEventFilter(this);
     connect(ui->actionChakan,&QAction::triggered,this,&GameWindow::on_actionChakan_triggered);
+    connect(ui->actionQingchu,&QAction::triggered,ui->textEdit_2,&QTextEdit::clear);
+    connect(ui->actionSousuo,&QAction::triggered,this,&GameWindow::searchfor);
+    connect(ui->actionChangecolor,&QAction::triggered,this,&GameWindow::setcolor);
     connect(ui->pushButton,&QPushButton::clicked,this,&GameWindow::on_pushButton_clicked);
     connect(ui->pushButton_13,&QPushButton::clicked,this,&GameWindow::on_pushButton_13_clicked);
     connect(ui->pushButton_15,&QPushButton::clicked,this,&GameWindow::on_pushButton_15_clicked);
-//    connect(ui->pushButton_22,&QPushButton::clicked,this,&GameWindow::on_pushButton_22_clicked);
     connect(ui->pushButton_17,&QPushButton::clicked,this,&GameWindow::endturn);
     connect(ui->pushButton_1,&QPushButton::clicked,this,&GameWindow::choose1);
     connect(ui->pushButton_2,&QPushButton::clicked,this,&GameWindow::choose2);
@@ -84,7 +89,6 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(ui->pushButton_10,&QPushButton::clicked,this,&GameWindow::choose10);
     connect(ui->pushButton_11,&QPushButton::clicked,this,&GameWindow::choose11);
     connect(ui->pushButton_12,&QPushButton::clicked,this,&GameWindow::choose12);
-
     connect(ui->pushButton_19,&QPushButton::clicked,this,&GameWindow::choose0);
     connect(ui->pushButton_23,&QPushButton::clicked,this,&GameWindow::chooseyes);
     connect(ui->pushButton_24,&QPushButton::clicked,this,&GameWindow::chooseno);
@@ -93,6 +97,10 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(ui->pushButton_22,&QPushButton::clicked,this,&GameWindow::setcolor);
     connect(ui->pushButton_21,&QPushButton::clicked,this,&GameWindow::searchfor);
     connect(&s,&search::findfor,this,&GameWindow::show_text);
+    /*QPalette editpalette=ui->textEdit_2->palette();
+    editpalette.setColor(QPalette::HighlightedText,Qt::yellow);
+    editpalette.setColor(QPalette::HighlightedText,Qt::white);
+    ui->textEdit_2->setPalette(editpalette);*/
 }
 
 
@@ -110,9 +118,23 @@ void GameWindow::show_text(QString findtext)
         else
         {
             QMessageBox::information(this,tr("注意"),tr("没有找到内容"),QMessageBox::Ok);
+            s.hide();
         }
 }
-
+bool GameWindow::eventFilter(QObject *obj, QEvent *e)
+{
+    Q_ASSERT(obj == ui->textEdit);
+    if (e->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *event = static_cast<QKeyEvent*>(e);
+        if (event->key() == Qt::Key_Return)
+        {
+            on_pushButton_clicked();
+            return true;
+        }
+    }
+    return false;
+}
 GameWindow::~GameWindow()
 {
     delete ui;
@@ -138,7 +160,7 @@ void GameWindow::addplayer(int seat,int id)
 {
     label[seat]->setVisible(true);
     pushbutton[seat]->setVisible(true);
-    label[seat]->setText(tr("ID:%1").arg(id));
+    label[seat]->setText(tr("%1号 ID:%2").arg(seat+1).arg(id));
     live[seat]=true;
 }
 void GameWindow::on_actionChakan_triggered()
@@ -250,7 +272,7 @@ void GameWindow::endturn()
     ui->textEdit_2->append(tr("发言结束。"));
     emit end();
 }
-int GameWindow::wolfsturn(QVector<int> player)
+/*int GameWindow::wolfsturn(QVector<int> player)
 {
     ui->textEdit_2->append(tr("请选择你要杀的人："));
     ui->textEdit->setEnabled(true);
@@ -264,7 +286,7 @@ int GameWindow::wolfsturn(QVector<int> player)
     return QApplication::exec()-1;
 }
 
-
+*/
 void GameWindow::choose1()
 {
     for(int i=0;i<=11;i++){
@@ -439,12 +461,6 @@ int GameWindow::vote(QVector<int> player)
     }
     return QApplication::exec()-1;
 }
-bool GameWindow::medicine()
-{
-    ui->pushButton_23->setVisible(true);
-    ui->pushButton_24->setVisible(true);
-    return QApplication::exec();
-}
 int GameWindow::poison(QVector<int> player)
 {
     ui->pushButton_19->setEnabled(true);
@@ -467,12 +483,21 @@ bool GameWindow::officerdecide()
 void GameWindow::showprepared(int prepared, int sum)
 {
     preparation->setText(tr("已有%1/%2人准备了").arg(prepared).arg(sum));
+    for(int i=sum;i<=11;i++)
+    {
+        frame[i]->setStyleSheet("background-color: rgb(90, 90, 90);");
+    }
 }
 void GameWindow::searchfor()
 {
     s.show();
 }
-
+/*bool GameWindow::medicine()
+{
+    ui->pushButton_23->setVisible(true);
+    ui->pushButton_24->setVisible(true);
+    return QApplication::exec();
+}*/
 /*int GameWindow::prophet(QVector<int> player)
 {
     QVector<int>::iterator i;
