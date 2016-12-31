@@ -8,8 +8,6 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-
-
 gui::gui(QObject *parent)
     :QObject(parent)
 {
@@ -107,9 +105,7 @@ void gui::back(bool permission)
 }
 void gui::flush(QVector<QPair<int, int> > vect, int prepared,int sum)
 {
-    for(int i=0;i<vect.size();i++){
-    g.addplayer(vect[i].first,vect[i].second);}
-    g.showprepared(prepared,sum);
+    g.flush(vect,prepared,sum);
 }
 void gui::myplayer(int seat, int id)
 {
@@ -150,47 +146,16 @@ void gui::gendturn()
     emit endspeaking();
 }
 
-/*void gui::gameover()
-{
-    g.gameover();
-}*/
-/*int gui::wolfsturn(QVector<int> player)
-{
-    return g.wolfsturn(player);
-}*/
 int gui::decide(QVector<int> player,bool choose0)
 {
-    if(choose0==false)
-    return g.vote(player);
-    else
-    return g.poison(player);
+    return g.vote(player,choose0);
 }
-
 
 bool gui::choose()
 {
     return g.officercandidate();
 }
-/*bool gui::medicine()
-{
-    return g.medicine();
-}
-int gui::poison(QVector<int> player)
-{
-    return g.poison(player);
-}
-int gui::prophet(QVector<int> player)
-{
-    return g.prophet(player);
-}
-int gui::hunter(QVector<int> player)
-{
-    return g.hunter(player);
-}
-bool gui::officerdecide()
-{
-    return g.officerdecide();
-}*/
+
 void gui::gexplode()
 {
     emit explode();
@@ -198,4 +163,8 @@ void gui::gexplode()
 void gui::endturn()
 {
     g.endturn();
+}
+void gui::gameover()
+{
+    g.gameover();
 }
