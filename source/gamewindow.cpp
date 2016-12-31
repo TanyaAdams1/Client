@@ -19,7 +19,7 @@ GameWindow::GameWindow(QWidget *parent) :
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMaximizeButtonHint);
     this->setFixedSize(this->width(),this->height());
     ui->textEdit->setTextColor(Qt::red);
-    ui->statusBar->showMessage(tr("欢迎加入游戏！"),2000);
+    ui->statusBar->showMessage(tr("欢迎加入游戏！"),10000);
     ui->statusBar->addPermanentWidget(preparation);
     ui->textEdit_2->setTextColor(Qt::red);
     label[0]=ui->label_1;
@@ -213,6 +213,7 @@ void GameWindow::back(bool permission)
 void GameWindow::start(int role)
 {
     ui->pushButton_13->setVisible(false);
+    ui->pushButton_15->setVisible(false);
     ui->pushButton_19->setVisible(true);
     ui->pushButton_22->setVisible(false);
 
@@ -272,21 +273,7 @@ void GameWindow::endturn()
     ui->textEdit_2->append(tr("发言结束。"));
     emit end();
 }
-/*int GameWindow::wolfsturn(QVector<int> player)
-{
-    ui->textEdit_2->append(tr("请选择你要杀的人："));
-    ui->textEdit->setEnabled(true);
-    ui->pushButton->setEnabled(true);
-    QVector<int>::iterator i;
-    for(i=player.begin();i!=player.end();i++)
-    {
-        pushbutton[*i]->setEnabled(true);
-        live[*i]=true;
-    }
-    return QApplication::exec()-1;
-}
 
-*/
 void GameWindow::choose1()
 {
     for(int i=0;i<=11;i++){
@@ -451,20 +438,10 @@ bool GameWindow::officercandidate()
 }
 
 
-int GameWindow::vote(QVector<int> player)
+int GameWindow::vote(QVector<int> player, bool c)
 {
-    QVector<int>::iterator i;
-    for(i=player.begin();i!=player.end();i++)
-    {
-        pushbutton[*i]->setEnabled(true);
-        live[*i]=true;
-    }
-    return QApplication::exec()-1;
-}
-int GameWindow::poison(QVector<int> player)
-{
-    ui->pushButton_19->setEnabled(true);
-
+    if(c==true)
+        ui->pushButton_19->setEnabled(true);
     QVector<int>::iterator i;
     for(i=player.begin();i!=player.end();i++)
     {
@@ -474,12 +451,6 @@ int GameWindow::poison(QVector<int> player)
     return QApplication::exec()-1;
 }
 
-bool GameWindow::officerdecide()
-{
-    ui->pushButton_23->setVisible(true);
-    ui->pushButton_24->setVisible(true);
-    return QApplication::exec();
-}
 void GameWindow::showprepared(int prepared, int sum)
 {
     preparation->setText(tr("已有%1/%2人准备了").arg(prepared).arg(sum));
@@ -492,6 +463,25 @@ void GameWindow::searchfor()
 {
     s.show();
 }
+/*bool GameWindow::officerdecide()
+{
+    ui->pushButton_23->setVisible(true);
+    ui->pushButton_24->setVisible(true);
+    return QApplication::exec();
+}*/
+/*int GameWindow::poison(QVector<int> player)
+{
+    ui->pushButton_19->setEnabled(true);
+
+    QVector<int>::iterator i;
+    for(i=player.begin();i!=player.end();i++)
+    {
+        pushbutton[*i]->setEnabled(true);
+        live[*i]=true;
+    }
+    return QApplication::exec()-1;
+}
+*/
 /*bool GameWindow::medicine()
 {
     ui->pushButton_23->setVisible(true);
@@ -532,3 +522,18 @@ int GameWindow::hunter(QVector<int> player)
     ui->pushButton_17->setEnabled(false);
     ui->textEdit->setEnabled(false);
 }*/
+/*int GameWindow::wolfsturn(QVector<int> player)
+{
+    ui->textEdit_2->append(tr("请选择你要杀的人："));
+    ui->textEdit->setEnabled(true);
+    ui->pushButton->setEnabled(true);
+    QVector<int>::iterator i;
+    for(i=player.begin();i!=player.end();i++)
+    {
+        pushbutton[*i]->setEnabled(true);
+        live[*i]=true;
+    }
+    return QApplication::exec()-1;
+}
+
+*/
