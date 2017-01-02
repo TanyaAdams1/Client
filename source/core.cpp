@@ -31,6 +31,7 @@ void Core::sendEmptyMessage(int t, int st, int rt, int ri){
     QCoreApplication::postEvent(socket,msg);
 }
 void Core::onNetworkError(){
+    G.back(true);
     G.hidehall();
     G.warning();
     pos=LOGIN;
@@ -53,17 +54,18 @@ void Core::handleMessage(Message msg){
         }
     }
     else if(msg.getType()==1){
+        G.showmessage(msg.getSenderid(),msg.getDetail());
         switch(msg.getSubtype()){
         case 1:
             if(msg.getArgument().isEmpty())
                 return;
             G.role(msg.getArgument()[0]);
             break;
+        case 4:
+            G.myturn();
         case 2:
         case 3:
-        case 4:
         case 10:
-            G.showmessage(-1,msg.getDetail());
             break;
         case 5:
         case 12:
@@ -109,15 +111,23 @@ void Core::handleMessage(Message msg){
             pos=GAME;
             break;
         case 5:
+            G.gameover();
             pos=ROOM;
         case 6:
             if(msg.getArgument().isEmpty())
                 return;
             flushPlayer(msg.getArgument());
+            break;
+        case 7:
+            if(msg.getArgument().isEmpty())
+                return;
+            G.showmessage(msg.getArgument()[0],msg.getDetail());
+            break;
         }
     }
 }
 void Core::genFeedback(Message msg){
+    G.showmessage(-1,msg.getDetail());
     if(msg.getArgument().isEmpty())
         return;
     int st=msg.getSubtype();
@@ -157,18 +167,18 @@ void Core::cancel(){
     sendEmptyMessage(2,2,2,roomid);
 }
 void Core::quit(){
-    Message *msg=new Message(2,3,2,roomid);
+    Message *msg=new Message(2,3,2,roomid,1,id);
     msg->addArgument(0);
     QCoreApplication::postEvent(socket,msg);
 }
 void Core::speak(QString content){
-    Message *msg=new Message(2,7,2,roomid);
+    Message *msg=new Message(2,7,2,roomid,1,id);
     msg->setDetail(content);
     msg->addArgument(0);
     QCoreApplication::postEvent(socket,msg);
 }
 void Core::endspeaking(){
-    Message *msg=new Message(2,7,2,roomid);
+    Message *msg=new Message(2,7,2,roomid,1,id);
     msg->addArgument(1);
     QCoreApplication::postEvent(socket,msg);
 }
