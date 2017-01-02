@@ -8,6 +8,7 @@
 #include<QPair>
 #include<QSignalMapper>
 #include"search.h"
+#include<QSound>
 namespace Ui {
 class GameWindow;
 }
@@ -31,13 +32,8 @@ public:
     void back(bool);
     void showprepared(int,int);
     ~GameWindow();
-    //bool officerdecide();//警长决定发言方向。询问是否警左，1警左，0警右
-    //int poison(QVector<int> player);
-    //int wolfsturn(QVector<int> player);
-    //bool medicine();
-    //int prophet(QVector<int> player);//预言家出场，验人结果用字符串告知
-    //int hunter(QVector<int>);//猎人死亡，发动技能
     void gameover();
+
 signals:
     void speak(QString);//回车发送信息待实现
     void prepared();
@@ -61,26 +57,19 @@ private:
     QFrame *frame[12];
     int identity,myseat;
     bool live[12];
-    //void choose(int seat);
-    void choose1();
-    void choose2();
-    void choose3();
-    void choose4();
-    void choose5();
-    void choose6();
-    void choose7();
-    void choose8();
-    void choose9();
-    void choose10();
-    void choose11();
-    void choose12();
-    void choose0();//选择不杀、不毒、不开枪、不票
     void chooseyes();
     void chooseno();
     void exploded();
     void searchfor();
+    QColor color;
     search s;
     void show_text(QString findtext);
+    QSound *bgm;
+private slots:
+    void choice(int);
+    void on_textEdit_textChanged();
+    void on_stop_clicked();
+    void on_continue_2_clicked();
 };
 
 #endif // GameWindow_H
