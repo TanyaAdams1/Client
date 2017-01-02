@@ -21,8 +21,9 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::prepared,this,&gui::gprepared);
     QObject::connect(&g,&GameWindow::unprepared,this,&gui::gunprepared);
     QObject::connect(&g,&GameWindow::goback,this,&gui::ggoback);
-    QObject::connect(&g,&GameWindow::endturn,this,&gui::gendturn);
+    QObject::connect(&g,&GameWindow::end,this,&gui::gendturn);
     QObject::connect(&g,&GameWindow::explode,this,&gui::gexplode);
+    QObject::connect(&g,&GameWindow::speak,this,&gui::gspeak);
 }
 
 QPair<QString,int> gui::acquireServer(){

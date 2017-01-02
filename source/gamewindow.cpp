@@ -196,7 +196,7 @@ void GameWindow::exploded()
 void GameWindow::on_pushButton_clicked()
 {
     QString str=ui->textEdit->toPlainText();
-    emit speak(identity,str);
+    emit speak(str);
     ui->textEdit->clear();
 }
 void GameWindow::on_pushButton_13_clicked()

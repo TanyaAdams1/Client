@@ -39,7 +39,7 @@ public:
     //int hunter(QVector<int>);//猎人死亡，发动技能
     void gameover();
 signals:
-    void speak(int, QString);//回车发送信息待实现
+    void speak(QString);//回车发送信息待实现
     void prepared();
     void unprepared();
     void goback();
