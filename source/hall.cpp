@@ -65,7 +65,7 @@ hall::hall(QWidget *parent) :
 
     player=new QMediaPlayer(this);
     mediaList=new QMediaPlaylist;
-    mediaList->addMedia(QUrl::fromLocalFile(":abc.mp3"));
+    mediaList->addMedia(QUrl::fromLocalFile(".:/abc.mp3"));
     mediaList->addMedia(QUrl::fromLocalFile("D:/Qt/data/Client/source/efg.mp3"));
     mediaList->setCurrentIndex(1);
     player->setPlaylist(mediaList);
