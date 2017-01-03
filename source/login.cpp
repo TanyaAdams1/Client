@@ -56,7 +56,7 @@ void login::on_pushButton_clicked()
         ui->label_4->setText("port不能为空");
 
     if((ui->ip->text().size()!=0)&(ui->port->text().size()!=0)){
-        this->hide();
+        this->close();
         emit Login(pair);
     }
 }

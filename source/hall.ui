@@ -326,7 +326,7 @@ font: 75 14pt &quot;微软雅黑&quot;;</string>
      <string notr="true">background-color: rgba(30, 15, 15, 180);</string>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
     </property>
    </widget>
    <zorder>label_3</zorder>
