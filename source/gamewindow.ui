@@ -20,6 +20,12 @@
    <string notr="true">#centralWidget{border-image: url(:/new/prefix1/icon/壁纸.jpg);}
 </string>
   </property>
+  <property name="iconSize">
+   <size>
+    <width>31</width>
+    <height>31</height>
+   </size>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="pushButton">
     <property name="enabled">
@@ -1480,6 +1486,57 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="stop">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>0</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/new/prefix1/icon/silent.jpg</normaloff>:/new/prefix1/icon/silent.jpg</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>31</width>
+      <height>31</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="continue_2">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>0</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/new/prefix1/icon/continue.jpg</normaloff>:/new/prefix1/icon/continue.jpg</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>31</width>
+      <height>31</height>
+     </size>
+    </property>
+   </widget>
+   <zorder>continue_2</zorder>
+   <zorder>stop</zorder>
    <zorder>pushButton_20</zorder>
    <zorder>pushButton_19</zorder>
    <zorder>pushButton_15</zorder>
