@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+QT       += multimedia
 QT       += core gui network
 #QT       += webkitwidgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -19,6 +20,7 @@ SOURCES += main.cpp\
     login.cpp \
     gui.cpp \
     gamewindow.cpp \
+    music.cpp \
     dialog.cpp \
     message.cpp \
     tcpsock.cpp \
@@ -31,6 +33,7 @@ HEADERS  += hall.h \
     login.h \
     gui.h \
     gamewindow.h \
+    music.h \
     dialog.h \
     message.h \
     tcpsock.h \
@@ -42,9 +45,9 @@ FORMS    += hall.ui \
     createroom.ui \
     login.ui \
     gamewindow.ui \
+    music.ui  \
     dialog.ui\
     search.ui
-
 RESOURCES += \
     myresource.qrc \
     image.qrc

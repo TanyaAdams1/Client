@@ -24,6 +24,7 @@ private slots:
     void on_pushButton_clicked();
 private:
     QPair<QString,int> pair;
+
     Ui::login *ui;
 };
 
