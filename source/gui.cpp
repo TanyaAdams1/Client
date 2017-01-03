@@ -26,6 +26,10 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::speak,this,&gui::gspeak);
 }
 
+void gui::closehall(){
+    w.closehall();
+}
+
 QPair<QString,int> gui::acquireServer(){
     l.exec();
     return l.getpair();
