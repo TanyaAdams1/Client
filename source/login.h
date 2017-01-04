@@ -19,13 +19,19 @@ public:
 
     void hidelogin();
 
+    void showlogin();
+
 signals:
     void Login(const QPair<QString,int> pair);
+
+    void stoptimer();
 
 private slots:
     void timerDone();
 
     void timerDone2();
+
+    void timerDone3();
 
     void on_pushButton_clicked();
 

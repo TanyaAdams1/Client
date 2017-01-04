@@ -40,7 +40,7 @@ void gui::showHall(){
 }
 
 void gui::showlogin(){
-    l.exec();
+    l.showlogin();
 }
 
 void gui::showcreateroom(){
