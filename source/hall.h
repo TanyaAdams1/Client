@@ -32,6 +32,8 @@ public:
 
     void closehall();
 
+    void showhall();
+
 signals:
 
     void createbutton_clicked();
@@ -43,6 +45,8 @@ signals:
     void openweb();
 
     void warning();
+
+    void stoptimer();
 
 private slots:
     void on_action_Q_triggered();
@@ -60,6 +64,8 @@ private slots:
     void on_pushButton_clicked();
 
     void timerDone();
+
+    void timerDone2();
 
     void changevolume(int volume);
 

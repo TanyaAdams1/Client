@@ -122,22 +122,5 @@ font: 75 12pt &quot;Adobe Arabic&quot;;</string>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>createroom</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>275</x>
-     <y>237</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>331</x>
-     <y>201</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

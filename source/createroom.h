@@ -17,20 +17,33 @@ public:
 
     ~createroom();
 
+    void hidewindow();
+
+    void showcreateroom();
+
 //    int getnumber();
 
 signals:
 
     void newroom(const int number);
 
+    void stoptimer();
+
 private slots:
+    void timerDone();
+
+    void timerDone2();
 
     void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::createroom *ui;
 
     int Number;
+
+    double i=1;
 };
 
 #endif // CREATEROOM_H
