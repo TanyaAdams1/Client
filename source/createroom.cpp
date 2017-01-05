@@ -25,6 +25,7 @@ createroom::createroom(QWidget *parent) :
 
     ui->label_2->setAlignment(Qt::AlignCenter);
 
+    ui->pushButton->setDefault(1);
 }
 
 createroom::~createroom()
