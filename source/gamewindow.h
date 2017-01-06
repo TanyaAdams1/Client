@@ -9,6 +9,7 @@
 #include<QSignalMapper>
 #include"search.h"
 #include<QSound>
+#include<QEventLoop>
 namespace Ui {
 class GameWindow;
 }
@@ -31,6 +32,7 @@ public:
     bool officercandidate();//传递警徽也用vote（），点击自己头像即为撕毁
     void back(bool);
     void showprepared(int,int);
+    void explodepermitted(bool);
     ~GameWindow();
     void gameover();
 
@@ -38,10 +40,12 @@ signals:
     void speak(QString);//回车发送信息待实现
     void prepared();
     void unprepared();
+    void warning();
     void goback();
     void explode();//自爆
     void end();//结束发言    
 private:
+    QEventLoop e;
     void addplayer(int,int);
     void setcolor();
     bool eventFilter(QObject *obj, QEvent *e);
