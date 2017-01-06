@@ -319,21 +319,21 @@ void GameWindow::chooseyes()
 {
     ui->pushButton_23->setVisible(false);
     ui->pushButton_24->setVisible(false);
-    QApplication::exit(true);
+    e.exit(true);
 }
 
 void GameWindow::chooseno()
 {
     ui->pushButton_23->setVisible(false);
     ui->pushButton_24->setVisible(false);
-    QApplication::exit(false);
+    e.exit(false);
 }
 
 bool GameWindow::officercandidate()
 {
    ui->pushButton_23->setVisible(true);
    ui->pushButton_24->setVisible(true);
-   return QApplication::exec();
+   return e.exec();
 }
 
 
