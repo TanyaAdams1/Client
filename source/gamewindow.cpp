@@ -9,7 +9,7 @@
 #include <QMessageBox>
 #include<QEvent>
 #include<QKeyEvent>
-#include<QDebug>
+#include"warning.h"
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GameWindow)
@@ -189,7 +189,13 @@ void GameWindow::on_actionChakan_triggered()
 void GameWindow::exploded()
 {
     emit explode();
-    ui->pushButton_20->setEnabled(false);
+}
+void GameWindow::explodepermitted(bool p)
+{
+    if(p==true)
+        ui->pushButton_20->setEnabled(false);
+    else
+        emit warning();
 }
 
 void GameWindow::on_pushButton_clicked()
@@ -227,7 +233,7 @@ void GameWindow::back(bool permission)
     if(permission==true)
         close();
     else
-        ui->textEdit_2->setText(tr("游戏已经开始，不能退出！"));
+        emit warning();
 }
 
 void GameWindow::start(int role)
@@ -306,7 +312,7 @@ void GameWindow::choice(int seat)
     ui->textEdit->setEnabled(false);
     ui->pushButton->setEnabled(false);
     ui->pushButton_19->setEnabled(false);
-    QApplication::exit(seat);
+    e.exit(seat);
 }
 
 void GameWindow::chooseyes()
@@ -341,7 +347,7 @@ int GameWindow::vote(QVector<int> player, bool c)
         pushbutton[*i]->setEnabled(true);
         live[*i]=true;
     }
-    return QApplication::exec()-1;
+    return e.exec()-1;
 }
 
 void GameWindow::showprepared(int prepared, int sum)
