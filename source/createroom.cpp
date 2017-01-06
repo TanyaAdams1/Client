@@ -32,7 +32,6 @@ createroom::~createroom()
     delete ui;
 }
 
-
 void createroom::on_pushButton_clicked()
 {
     Number=ui->number->text().toInt();
@@ -45,16 +44,12 @@ void createroom::on_pushButton_clicked()
 }
 }
 
-/*int createroom::getnumber(){
-    return Number;
-}*/
-
 void createroom::on_pushButton_2_clicked()
 {   i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
     this->connect(this,&createroom::stoptimer,timer,&timer->stop);
-    timer->start(7);
+    timer->start(10);
 }
 
 void createroom::hidewindow(){
@@ -62,11 +57,11 @@ void createroom::hidewindow(){
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
     this->connect(this,&createroom::stoptimer,timer,&timer->stop);
-    timer->start(7);
+    timer->start(10);
 }
 
 void createroom::timerDone(){
-    i-=0.0075;
+    i-=0.016;
     this->setWindowOpacity(i);
     if(i<=0){
         emit stoptimer();
@@ -80,11 +75,11 @@ void createroom::showcreateroom(){
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone2()));
     this->connect(this,&createroom::stoptimer,timer,&timer->stop);
-    timer->start(7);
+    timer->start(10);
 }
 
 void createroom::timerDone2(){
-    i+=0.0075;
+    i+=0.016;
     this->setWindowOpacity(i);
     if(i>=1){
         emit stoptimer();

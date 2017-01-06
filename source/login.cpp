@@ -63,11 +63,11 @@ void login::hidelogin(){
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
     this->connect(this,&login::stoptimer,timer,&timer->stop);
-    timer->start(7);
+    timer->start(10);
 }
 
 void login::timerDone(){
-    i-=0.0075;
+    i-=0.016;
     this->setWindowOpacity(i);
     if(i<=0){
         emit stoptimer();
@@ -80,11 +80,11 @@ void login::showlogin(){
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone3()));
     this->connect(this,&login::stoptimer,timer,&timer->stop);
-    timer->start(7);
+    timer->start(10);
 }
 
 void login::timerDone3(){
-    i+=0.0075;
+    i+=0.016;
     this->setWindowOpacity(i);
     if(i>=1)
         emit stoptimer();
@@ -104,15 +104,19 @@ void login::reset(){
 }
 
 void login::on_pushButton_2_clicked()
-{   i=1;
+{
+    pair.first=ui->ip->text();
+    pair.second=-1;
+    emit Login(pair);
+    i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone2()));
     this->connect(this,&login::stoptimer,timer,&timer->stop);
-    timer->start(7);
+    timer->start(10);
 }
 
 void login::timerDone2(){
-    i-=0.0075;
+    i-=0.016;
     this->setWindowOpacity(i);
     if(i<=0)
         this->close();

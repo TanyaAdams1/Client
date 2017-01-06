@@ -15,6 +15,8 @@ music::music(QWidget *parent) :
                                         "QSlider::groove:vertical,QSlider::sub-page:vertical{width:8px;border-radius:3px;background:#D8D8D8;}"
                                         "QSlider::add-page:vertical{width:8px;border-radius:3px;background:#008aff;}"
                                         "QSlider::handle:vertical{height:12px;margin-left:-5px;margin-right:-4px;border-radius:6px;background:qradialgradient(spread:pad,cx:0.5,cy:0.5,radius:0.5,fx:0.5,fy:0.5,stop:0.6 #565656,stop:0.8 #565656);}");
+
+    this->setFixedSize(this->width(), this->height());
 }
 
 music::~music()
