@@ -24,6 +24,7 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::end,this,&gui::gendturn);
     QObject::connect(&g,&GameWindow::explode,this,&gui::gexplode);
     QObject::connect(&g,&GameWindow::speak,this,&gui::gspeak);
+    QObject::connect(&g,&GameWindow::warning,this,&gui::WArning);
 }
 
 void gui::closehall(){
@@ -172,4 +173,8 @@ void gui::endturn()
 void gui::gameover()
 {
     g.gameover();
+}
+void gui::explodepermitted(bool p)
+{
+    g.explodepermitted(p);
 }
