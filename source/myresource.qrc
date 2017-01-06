@@ -4,5 +4,8 @@
         <file>3.jpg</file>
         <file>d0.jpg</file>
         <file>image.jpg</file>
+        <file>4.jpg</file>
+        <file>5.jpg</file>
+        <file>abc.mp3</file>
     </qresource>
 </RCC>

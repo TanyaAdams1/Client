@@ -5,6 +5,9 @@
 #include <QString>
 #include <QApplication>
 #include <QTableWidgetItem>
+#include "music.h"
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 namespace Ui {
 class hall;
@@ -27,6 +30,10 @@ public:
 
     void removeall();
 
+    void closehall();
+
+    void showhall();
+
 signals:
 
     void createbutton_clicked();
@@ -38,6 +45,8 @@ signals:
     void openweb();
 
     void warning();
+
+    void stoptimer();
 
 private slots:
     void on_action_Q_triggered();
@@ -53,8 +62,28 @@ private slots:
     void getitem(QTableWidgetItem*item);
 
     void on_pushButton_clicked();
+
+    void timerDone();
+
+    void timerDone2();
+
+    void changevolume(int volume);
+
+    void on_action_3_triggered();
+
+    void nextsong();
+
+    void previoussong();
+
+    void pos();
+
+    void goon();
 private:
     Ui::hall *ui;
+    double i;
+    music m;
+    QMediaPlayer *player;
+    QMediaPlaylist* mediaList;
 };
 
 #endif // HALL_H

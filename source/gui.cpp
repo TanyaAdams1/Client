@@ -26,6 +26,10 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::speak,this,&gui::gspeak);
 }
 
+void gui::closehall(){
+    w.closehall();
+}
+
 QPair<QString,int> gui::acquireServer(){
     l.exec();
     return l.getpair();
@@ -33,20 +37,20 @@ QPair<QString,int> gui::acquireServer(){
 
 void gui::showHall(){
     w.setup(l.getpair().first,QString::number(l.getpair().second,10));
-    w.show();
+    w.showhall();
 }
 
 void gui::showlogin(){
-    l.exec();
+    l.showlogin();
 }
 
 void gui::showcreateroom(){
-    c.exec();
+    c.showcreateroom();
 }
 
 void gui::onenewroom(const int number){
     emit Newroom(number);
-    c.hide();
+    c.hidewindow();
 }
 
 void gui::warning(){

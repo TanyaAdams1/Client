@@ -34,6 +34,8 @@ public:
 
     void flushroom(QVector<QVector<int> >);
 
+    void closehall();
+
     void showgame();//窗口出现
 
     void flush(QVector<QPair<int,int> >,int,int);//加入玩家
