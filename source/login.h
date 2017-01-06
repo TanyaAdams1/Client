@@ -14,7 +14,9 @@ class login : public QDialog
 public:
     explicit login(QWidget *parent = 0);
     ~login();
+
     QPair<QString,int> getpair();
+
     void reset();
 
     void hidelogin();

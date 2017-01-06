@@ -21,8 +21,6 @@ public:
 
     void showcreateroom();
 
-//    int getnumber();
-
 signals:
 
     void newroom(const int number);
