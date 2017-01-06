@@ -133,7 +133,7 @@ void hall::showhall(){
     QTimer *timer2 = new QTimer;
     this->connect(timer2,SIGNAL(timeout()),this,SLOT(timerDone2()));
     timer2->start(10);
-    this->connect(this,&hall::stoptimer,timer2,&timer2->stop);
+    this->connect(this,&hall::stoptimer,timer2,&QTimer::stop);
 }
 
 void hall::timerDone2(){

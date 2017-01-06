@@ -78,7 +78,6 @@ private slots:
     void pos();
 
     void goon();
-
 private:
     Ui::hall *ui;
     double i;

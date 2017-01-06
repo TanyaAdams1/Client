@@ -8,7 +8,6 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-
 gui::gui(QObject *parent)
     :QObject(parent)
 {
@@ -22,8 +21,10 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::prepared,this,&gui::gprepared);
     QObject::connect(&g,&GameWindow::unprepared,this,&gui::gunprepared);
     QObject::connect(&g,&GameWindow::goback,this,&gui::ggoback);
-    QObject::connect(&g,&GameWindow::endturn,this,&gui::gendturn);
+    QObject::connect(&g,&GameWindow::end,this,&gui::gendturn);
     QObject::connect(&g,&GameWindow::explode,this,&gui::gexplode);
+    QObject::connect(&g,&GameWindow::speak,this,&gui::gspeak);
+    QObject::connect(&g,&GameWindow::warning,this,&gui::WArning);
 }
 
 void gui::closehall(){
@@ -31,6 +32,7 @@ void gui::closehall(){
 }
 
 QPair<QString,int> gui::acquireServer(){
+    l.exec();
     return l.getpair();
 }
 
@@ -103,13 +105,13 @@ void gui::showgame()
 {
     g.show();
 }
-
-void gui::flush(QVector<QPair<int, int> > vect, int prepared)
+void gui::back(bool permission)
 {
-    QVector<QPair<int,int>>::iterator i;
-    for(i=vect.begin();i!=vect.end();i++){
-    g.addplayer(i->first,i->second);}
-    g.showprepared(prepared);
+    g.back(permission);
+}
+void gui::flush(QVector<QPair<int, int> > vect, int prepared,int sum)
+{
+    g.flush(vect,prepared,sum);
 }
 void gui::myplayer(int seat, int id)
 {
@@ -150,47 +152,16 @@ void gui::gendturn()
     emit endspeaking();
 }
 
-/*void gui::gameover()
-{
-    g.gameover();
-}*/
-/*int gui::wolfsturn(QVector<int> player)
-{
-    return g.wolfsturn(player);
-}*/
 int gui::decide(QVector<int> player,bool choose0)
 {
-    if(choose0==false)
-    return g.vote(player);
-    else
-    return g.poison(player);
+    return g.vote(player,choose0);
 }
-
 
 bool gui::choose()
 {
     return g.officercandidate();
 }
-/*bool gui::medicine()
-{
-    return g.medicine();
-}
-int gui::poison(QVector<int> player)
-{
-    return g.poison(player);
-}
-int gui::prophet(QVector<int> player)
-{
-    return g.prophet(player);
-}
-int gui::hunter(QVector<int> player)
-{
-    return g.hunter(player);
-}
-bool gui::officerdecide()
-{
-    return g.officerdecide();
-}*/
+
 void gui::gexplode()
 {
     emit explode();
@@ -198,4 +169,12 @@ void gui::gexplode()
 void gui::endturn()
 {
     g.endturn();
+}
+void gui::gameover()
+{
+    g.gameover();
+}
+void gui::explodepermitted(bool p)
+{
+    g.explodepermitted(p);
 }

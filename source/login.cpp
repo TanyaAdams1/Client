@@ -53,7 +53,7 @@ void login::on_pushButton_clicked()
         ui->label_4->setText("port不能为空");
 
     if((ui->ip->text().size()!=0)&(ui->port->text().size()!=0)){
-        this->hidelogin();
+        this->close();
         emit Login(pair);
     }
 }
@@ -62,7 +62,7 @@ void login::hidelogin(){
     i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
-    this->connect(this,&login::stoptimer,timer,&timer->stop);
+    this->connect(this,&login::stoptimer,timer,&QTimer::stop);
     timer->start(10);
 }
 
@@ -79,7 +79,7 @@ void login::showlogin(){
     this->exec();
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone3()));
-    this->connect(this,&login::stoptimer,timer,&timer->stop);
+    this->connect(this,&login::stoptimer,timer,&QTimer::stop);
     timer->start(10);
 }
 
@@ -111,7 +111,7 @@ void login::on_pushButton_2_clicked()
     i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone2()));
-    this->connect(this,&login::stoptimer,timer,&timer->stop);
+    this->connect(this,&login::stoptimer,timer,&QTimer::stop);
     timer->start(10);
 }
 
