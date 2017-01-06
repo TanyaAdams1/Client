@@ -22,9 +22,7 @@ public:
     explicit GameWindow(QWidget *parent = 0);
     void flush(QVector<QPair<int,int> >,int,int);
     void myplayer(int,int);//信息初始化：玩家本人的id与座位号
-    void start(int role);//role: 0村民、1女巫、2猎人、3预言家、4狼人
-    //1：狼人 2：女巫 3：预言家 4：猎人 5：平民
-    //0->1\1->2\2->4\3->3\4->1
+    void start(int role);//role:1：狼人 2：女巫 3：预言家 4：猎人 5：平民
     void getmessage(int seat,QString str);//0表示上帝
     void myturn();
     void endturn();//可以内部执行，但考虑到倒计时等扩展，写为公有。
@@ -66,6 +64,7 @@ private:
     void exploded();
     void searchfor();
     QColor color;
+    QColor color0;
     search s;
     void show_text(QString findtext);
     QSound *bgm;

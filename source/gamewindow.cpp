@@ -98,6 +98,7 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(ui->pushButton_19,SIGNAL(clicked()),mapper,SLOT(map()));
     mapper->setMapping(ui->pushButton_19,0);
     connect(mapper,SIGNAL(mapped(int)),this,SLOT(choice(int)));
+    color0=QColor( 0, 85, 255);
     /*QPalette editpalette=ui->textEdit_2->palette();
     editpalette.setColor(QPalette::HighlightedText,Qt::yellow);
     editpalette.setColor(QPalette::HighlightedText,Qt::white);
@@ -280,10 +281,13 @@ void GameWindow::start(int role)
 
 void GameWindow::getmessage(int seat,QString str)
 {
-    if(seat!=-1)
-    ui->textEdit_2->append(tr("%1号玩家：").arg(seat+1));
-    ui->textEdit_2->append(str);
 
+    if(seat!=-1)
+        ui->textEdit_2->append(tr("%1号玩家：").arg(seat+1));
+    else
+        ui->textEdit_2->setTextColor(color0);
+    ui->textEdit_2->append(str);
+    ui->textEdit_2->setTextColor(color);
 }
 
 void GameWindow::myturn()
@@ -370,6 +374,7 @@ void GameWindow::gameover()
     ui->pushButton->setEnabled(false);
     ui->pushButton_17->setEnabled(false);
     ui->textEdit->setEnabled(false);
+    ui->pushButton_20->setVisible(false);
 }
 void GameWindow::on_textEdit_textChanged()
 {
