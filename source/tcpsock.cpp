@@ -40,8 +40,6 @@ void TcpSock::handleInput(){
         io>>message;
         if(!io.commitTransaction())
             return;
-        qDebug()<<"Got message";
-        qDebug()<<"Type:"<<message.getType()<<"\tSubType:"<<message.getSubtype();
         emit emitMessage(message);
     }
 }
