@@ -54,7 +54,7 @@ void createroom::on_pushButton_2_clicked()
 {   i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
-    this->connect(this,&createroom::stoptimer,timer,&timer->stop);
+    this->connect(this,&createroom::stoptimer,timer,&QTimer::stop);
     timer->start(7);
 }
 
@@ -62,7 +62,7 @@ void createroom::hidewindow(){
     i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
-    this->connect(this,&createroom::stoptimer,timer,&timer->stop);
+    this->connect(this,&createroom::stoptimer,timer,&QTimer::stop);
     timer->start(7);
 }
 
@@ -80,7 +80,7 @@ void createroom::showcreateroom(){
     this->exec();
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone2()));
-    this->connect(this,&createroom::stoptimer,timer,&timer->stop);
+    this->connect(this,&createroom::stoptimer,timer,&QTimer::stop);
     timer->start(7);
 }
 
