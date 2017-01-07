@@ -71,8 +71,6 @@ hall::hall(QWidget *parent) :
     mediaList->setCurrentIndex(1);
     player->setPlaylist(mediaList);
     player->setVolume(50);
-    player->play();
-
 }
 
 void hall::changevolume(int volume){
@@ -103,7 +101,8 @@ void hall::closehall(){
     i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
-    timer->start(7);
+    this->connect(this,&hall::stoptimer,timer,&QTimer::stop);
+    timer->start(10);
 }
 
 void hall::timerDone(){
@@ -118,10 +117,11 @@ void hall::timerDone(){
 }
     if((y<=-501)&(y>=-1200)){
     ui->roomtableWidget->setGeometry(80,y-5,620,461);
-    i-=0.0075;
+    i-=0.016;
     this->setWindowOpacity(i);}
     if(y<-1201){
         this->hide();
+        emit stoptimer();
         player->stop();
 }
 }
@@ -129,17 +129,20 @@ void hall::timerDone(){
 void hall::showhall(){
     i=0;
     this->show();
+    player->play();
     QTimer *timer2 = new QTimer;
     this->connect(timer2,SIGNAL(timeout()),this,SLOT(timerDone2()));
-    timer2->start(7);
+    timer2->start(10);
     this->connect(this,&hall::stoptimer,timer2,&QTimer::stop);
 }
 
 void hall::timerDone2(){
-    i+=0.0075;
+    i+=0.016;
     this->setWindowOpacity(i);
-    if(i>=1)
+    if(i>=1){
+        player->play();
         emit stoptimer();
+    }
 }
 
 void hall::addroom(QString ip,QString number){
