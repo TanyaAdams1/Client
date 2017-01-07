@@ -32,29 +32,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>40</y>
-     <width>81</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(223, 223, 223);
-font: 75 20pt &quot;Adobe Arabic&quot;;</string>
-   </property>
-   <property name="text">
-    <string>ip</string>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="port">
    <property name="geometry">
     <rect>
@@ -188,41 +165,13 @@ font: 75 12pt &quot;Adobe Arabic&quot;;</string>
     <string>Cancel</string>
    </property>
   </widget>
-  <zorder>label_5</zorder>
-  <zorder>port</zorder>
-  <zorder>ip</zorder>
-  <zorder>label</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>pushButton_2</zorder>
-  <zorder>lineEdit</zorder>
  </widget>
  <tabstops>
   <tabstop>ip</tabstop>
   <tabstop>port</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>pushButton_2</tabstop>
-  <tabstop>lineEdit</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>login</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>304</x>
-     <y>253</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>317</x>
-     <y>214</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

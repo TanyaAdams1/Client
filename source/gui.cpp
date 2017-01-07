@@ -24,6 +24,7 @@ gui::gui(QObject *parent)
     QObject::connect(&g,&GameWindow::end,this,&gui::gendturn);
     QObject::connect(&g,&GameWindow::explode,this,&gui::gexplode);
     QObject::connect(&g,&GameWindow::speak,this,&gui::gspeak);
+    QObject::connect(&g,&GameWindow::warning,this,&gui::WArning);
 }
 
 void gui::closehall(){
@@ -37,20 +38,20 @@ QPair<QString,int> gui::acquireServer(){
 
 void gui::showHall(){
     w.setup(l.getpair().first,QString::number(l.getpair().second,10));
-    w.show();
+    w.showhall();
 }
 
 void gui::showlogin(){
-    l.exec();
+    l.showlogin();
 }
 
 void gui::showcreateroom(){
-    c.exec();
+    c.showcreateroom();
 }
 
 void gui::onenewroom(const int number){
     emit Newroom(number);
-    c.hide();
+    c.hidewindow();
 }
 
 void gui::warning(){
@@ -170,6 +171,14 @@ void gui::endturn()
     g.endturn();
 }
 void gui::gameover()
+{
+    g.gameover();
+}
+void gui::explodepermitted(bool p)
+{
+    g.explodepermitted(p);
+}
+void gui::dead()
 {
     g.gameover();
 }
