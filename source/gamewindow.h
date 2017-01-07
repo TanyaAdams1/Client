@@ -42,6 +42,9 @@ signals:
     void goback();
     void explode();//自爆
     void end();//结束发言    
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
 private:
     QEventLoop e;
     void addplayer(int,int);
@@ -68,11 +71,14 @@ private:
     search s;
     void show_text(QString findtext);
     QSound *bgm;
+
 private slots:
     void choice(int);
     void on_textEdit_textChanged();
     void on_stop_clicked();
     void on_continue_2_clicked();
+    void on_pushButton_16_clicked();
+    void on_actionJilu_triggered();
 };
 
 #endif // GameWindow_H
