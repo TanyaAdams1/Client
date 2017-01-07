@@ -200,10 +200,8 @@ void GameWindow::exploded()
 }
 void GameWindow::explodepermitted(bool p)
 {
-    if(p==true){
+    if(p==true)
         ui->pushButton_20->setEnabled(false);
-    emit end();
-    }
     else
         emit warning();
 }
@@ -315,7 +313,7 @@ void GameWindow::endturn()
     ui->pushButton->setEnabled(false);
     ui->pushButton_17->setEnabled(false);
     ui->textEdit_2->append(tr("发言结束。"));
-
+    emit end();
 }
 
 void GameWindow::choice(int seat)
