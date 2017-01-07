@@ -385,6 +385,8 @@ void GameWindow::gameover()
     ui->textEdit->setEnabled(false);
     ui->pushButton_20->setVisible(false);
     ui->pushButton_14->setVisible(false);
+    if(e.isRunning())
+        e.exit(0);
 }
 void GameWindow::on_textEdit_textChanged()
 {
