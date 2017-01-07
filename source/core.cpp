@@ -75,11 +75,16 @@ void Core::handleMessage(Message msg){
         case 12:
             G.myturn();
             break;
+        case 17:
+            G.dead();
+            break;
         case 19:
             if(msg.getArgument().isEmpty())
                 return;
             if(msg.getArgument()[0])
                 G.endturn();
+            else
+                G.showmessage(-1,"Self-explode failed!");
             break;
         default:
             genFeedback(msg);
