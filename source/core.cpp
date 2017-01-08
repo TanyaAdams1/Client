@@ -1,5 +1,5 @@
 #include "core.h"
-
+#include <stdlib.h>
 Core::Core(QObject *parent) : QObject(parent)
 {
     connectToServer();
@@ -15,7 +15,7 @@ Core::Core(QObject *parent) : QObject(parent)
 void Core::connectToServer(){
     QPair<QString,int> server=G.acquireServer();
     if(server.second<=0){
-        QApplication::exit();
+        exit(0);
     }
     else{
         socket=new TcpSock(0,server.first,server.second);
@@ -54,7 +54,6 @@ void Core::handleMessage(Message msg){
             if(msg.getArgument().isEmpty())
                 return;
             id=msg.getArgument()[0];
-            qDebug()<<"id:"<<id;
             break;
         }
     }
@@ -71,7 +70,6 @@ void Core::handleMessage(Message msg){
         case 10:
             break;
         case 4:
-        case 5:
         case 12:
             G.myturn();
             break;
@@ -142,7 +140,7 @@ void Core::genFeedback(Message msg){
     if(st==7||st==8||st==14||st==18)
         allowGiveup=true;
     Message *feedback=new Message(1,msg.getSubtype(),2,roomid,1,id);
-    if(st==11){
+    if(st==11||st==5){
         feedback->addArgument(G.choose());
     }
     else if(st==15){

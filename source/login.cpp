@@ -52,8 +52,8 @@ void login::on_pushButton_clicked()
     if(ui->port->text().size()==0)
         ui->label_4->setText("port不能为空");
 
-    if((ui->ip->text().size()!=0)&(ui->port->text().size()!=0)){
-        this->close();
+    if((ui->ip->text().size()!=0)&&(ui->port->text().size()!=0)){
+        this->hidelogin();
         emit Login(pair);
     }
 }
@@ -71,16 +71,21 @@ void login::timerDone(){
     this->setWindowOpacity(i);
     if(i<=0){
         emit stoptimer();
-        this->hide();}
+        this->close();}
 }
 
+
 void login::showlogin(){
+    pair.second=-1;
     i=0;
     this->exec();
+    if(this->isVisible()){
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone3()));
     this->connect(this,&login::stoptimer,timer,&QTimer::stop);
-    timer->start(10);
+    timer->start(10);}
+    else
+        this->close();
 }
 
 void login::timerDone3(){

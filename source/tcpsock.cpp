@@ -12,7 +12,6 @@ TcpSock::TcpSock(QObject *parent,int _sockDescript, int _id, QString _name)
     io.setDevice(&socket);
     id=_id;
     name=_name;
-    qDebug()<<_sockDescript<<"connected\n";
 }
 TcpSock::TcpSock(QObject *parent, QString ip, int port)
     :QObject(parent),socket(this)
