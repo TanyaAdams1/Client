@@ -424,7 +424,9 @@ void GameWindow::on_pushButton_16_clicked()
         if(ok)
         {
             QTextStream out(file);
-            out<<ui->textEdit_2->toPlainText();
+            QString text = ui->textEdit_2->toPlainText();
+            text.replace(QString("\n"), QString("\r\n"));
+            out<<text;
             file->close();
             delete file;
         }
