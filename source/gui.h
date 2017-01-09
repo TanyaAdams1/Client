@@ -52,12 +52,15 @@ public:
 
     bool choose();//做出是与否的选择
 
+    void explodepermitted(bool);//允许/不允许自爆（不负责打断进程）
+
     void endturn();//自爆时强制结束对话
 
     void back(bool);//同意返回大厅
 
     void gameover();//游戏结束
 
+    void dead();//死亡
 
 signals:
 
@@ -113,6 +116,7 @@ private:
     void gchoice(int);
 
     void gexplode();
+
 
 };
 

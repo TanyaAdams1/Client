@@ -11,5 +11,7 @@
         <file>icon/farmer.ico</file>
         <file>icon/gun.ico</file>
         <file>icon/滑稽 - 1.jpg</file>
+        <file>icon/continue.jpg</file>
+        <file>icon/silent.jpg</file>
     </qresource>
 </RCC>

@@ -14,20 +14,25 @@ Core::Core(QObject *parent) : QObject(parent)
 }
 void Core::connectToServer(){
     QPair<QString,int> server=G.acquireServer();
-    socket=new TcpSock(0,server.first,server.second);
-    connect(socket,&TcpSock::emitMessage,this,&Core::handleMessage);
-    pos=HALL;
-    G.showHall();
-    thread=new QThread();
-    socket->moveToThread(thread);
-    thread->start();
-    connect(socket,&TcpSock::destroyed,thread,&QThread::quit);
-    connect(thread,&QThread::finished,thread,&QThread::deleteLater);
-    connect(thread,&QThread::destroyed,this,&Core::onNetworkError);
-    sendEmptyMessage(0,2,0,0);
+    if(server.second<=0){
+        QApplication::exit();
+    }
+    else{
+        socket=new TcpSock(0,server.first,server.second);
+        connect(socket,&TcpSock::emitMessage,this,&Core::handleMessage);
+        pos=HALL;
+        G.showHall();
+        thread=new QThread();
+        socket->moveToThread(thread);
+        thread->start();
+        connect(socket,&TcpSock::destroyed,thread,&QThread::quit);
+        connect(thread,&QThread::finished,thread,&QThread::deleteLater);
+        connect(thread,&QThread::destroyed,this,&Core::onNetworkError);
+
+    }
 }
 void Core::sendEmptyMessage(int t, int st, int rt, int ri){
-    Message *msg=new Message(t,st,rt,ri,2,id);
+    Message *msg=new Message(t,st,rt,ri,1,id);
     QCoreApplication::postEvent(socket,msg);
 }
 void Core::onNetworkError(){
@@ -54,28 +59,32 @@ void Core::handleMessage(Message msg){
         }
     }
     else if(msg.getType()==1){
-        G.showmessage(msg.getSenderid(),msg.getDetail());
+        G.showmessage(-1,msg.getDetail());
         switch(msg.getSubtype()){
         case 1:
             if(msg.getArgument().isEmpty())
                 return;
             G.role(msg.getArgument()[0]);
             break;
-        case 4:
-            G.myturn();
         case 2:
         case 3:
         case 10:
             break;
+        case 4:
         case 5:
         case 12:
             G.myturn();
+            break;
+        case 17:
+            G.dead();
             break;
         case 19:
             if(msg.getArgument().isEmpty())
                 return;
             if(msg.getArgument()[0])
                 G.endturn();
+            else
+                G.showmessage(-1,"Self-explode failed!");
             break;
         default:
             genFeedback(msg);
@@ -103,6 +112,7 @@ void Core::handleMessage(Message msg){
                 G.back(true);
                 pos=HALL;
                 G.showHall();
+                sendEmptyMessage(0,2,0,0);
             }
             else
                 G.warning();
@@ -127,30 +137,23 @@ void Core::handleMessage(Message msg){
     }
 }
 void Core::genFeedback(Message msg){
-    G.showmessage(-1,msg.getDetail());
-    if(msg.getArgument().isEmpty())
-        return;
     int st=msg.getSubtype();
     bool allowGiveup=false;
-    if(st==8||st==14||st==18)
+    if(st==7||st==8||st==14||st==18)
         allowGiveup=true;
-    if(st==5||st==11){
-        Message *feedback=new Message(msg.getType(),msg.getSubtype(),msg.getSenderType(),msg.getSenderid(),1,id);
+    Message *feedback=new Message(1,msg.getSubtype(),2,roomid,1,id);
+    if(st==11){
         feedback->addArgument(G.choose());
-        QCoreApplication::postEvent(socket,feedback);
     }
     else if(st==15){
-        Message *feedback=new Message(msg.getType(),msg.getSubtype(),msg.getSenderType(),msg.getSenderid(),1,id);
         feedback->addArgument(G.decide(msg.getArgument(),allowGiveup));
         feedback->addArgument(G.choose());
-        QCoreApplication::postEvent(socket,feedback);
     }
     else{
         int ret=G.decide(msg.getArgument(),allowGiveup);
-        Message *feedback=new Message(msg.getType(),msg.getSubtype(),msg.getSenderType(),msg.getSenderid(),1,id);
         feedback->addArgument(ret);
-        QCoreApplication::postEvent(socket,feedback);
     }
+    QCoreApplication::postEvent(socket,feedback);
 }
 void Core::Newroom(const int number){
     Message *msg=new Message(0,1,0,0,1,id);
@@ -186,7 +189,6 @@ void Core::explode(){
     sendEmptyMessage(1,19,2,roomid);
 }
 void Core::flushPlayer(QVector<int> player){
-    qDebug()<<"flushing player...";
     int cap=player[0],num=player[1],ready=player[2];
     QVector<QPair<int,int> >players;
     for(int i=0;i<num;i++){
@@ -197,11 +199,9 @@ void Core::flushPlayer(QVector<int> player){
         if(tmp.second==id)
             G.myplayer(tmp.first,tmp.second);
     }
-    qDebug()<<"players:"<<players.size();
     G.flush(players,ready,cap);
 }
 void Core::flushRoom(QVector<int> rooms){
-    qDebug()<<"flushing room...";
     int num=rooms[0];
     QVector<QVector<int>> roominfo;
     for(int i=0;i<num;i++){

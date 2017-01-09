@@ -11,6 +11,7 @@
 #include <QTimer>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QDebug>
 
 hall::hall(QWidget *parent) :
     QMainWindow(parent),
@@ -29,7 +30,6 @@ hall::hall(QWidget *parent) :
     QObject::connect(&m,&music::previous,this,&hall::previoussong);
     QObject::connect(&m,&music::pause,this,&hall::pos);
     QObject::connect(&m,&music::goon,this,&hall::goon);
-
 
     ui->notepad->setWidget(ui->textEdit);
     ui->notepad->setAllowedAreas(Qt::RightDockWidgetArea|Qt::LeftDockWidgetArea);
@@ -61,16 +61,16 @@ hall::hall(QWidget *parent) :
     ui->ip->setAlignment(Qt::AlignCenter);
     ui->port->setAlignment(Qt::AlignCenter);
     ui->roomtableWidget->setGeometry(80,60,620,461);
-    i=1.00000;
 
     player=new QMediaPlayer(this);
     mediaList=new QMediaPlaylist;
-    mediaList->addMedia(QUrl::fromLocalFile(".:/abc.mp3"));
-    mediaList->addMedia(QUrl::fromLocalFile("D:/Qt/data/Client/source/efg.mp3"));
+    QString runPath = QCoreApplication::applicationDirPath();
+    mediaList->addMedia(QUrl::fromLocalFile(runPath+"/hallBGM.mp3"));
+    mediaList->addMedia(QUrl::fromLocalFile(runPath+"/nightBGM.mp3"));
+    mediaList->addMedia(QUrl::fromLocalFile(runPath+"/nightBGM2.mp3"));
     mediaList->setCurrentIndex(1);
     player->setPlaylist(mediaList);
     player->setVolume(50);
-    player->play();
 }
 
 void hall::changevolume(int volume){
@@ -98,9 +98,11 @@ void hall::goon(){
 }
 
 void hall::closehall(){
+    i=1;
     QTimer *timer = new QTimer;
     this->connect(timer,SIGNAL(timeout()),this,SLOT(timerDone()));
-    timer->start(7);
+    this->connect(this,&hall::stoptimer,timer,&QTimer::stop);
+    timer->start(10);
 }
 
 void hall::timerDone(){
@@ -115,12 +117,32 @@ void hall::timerDone(){
 }
     if((y<=-501)&(y>=-1200)){
     ui->roomtableWidget->setGeometry(80,y-5,620,461);
-    i-=0.0075;
+    i-=0.016;
     this->setWindowOpacity(i);}
     if(y<-1201){
         this->hide();
+        emit stoptimer();
         player->stop();
 }
+}
+
+void hall::showhall(){
+    i=0;
+    this->show();
+    player->play();
+    QTimer *timer2 = new QTimer;
+    this->connect(timer2,SIGNAL(timeout()),this,SLOT(timerDone2()));
+    timer2->start(10);
+    this->connect(this,&hall::stoptimer,timer2,&QTimer::stop);
+}
+
+void hall::timerDone2(){
+    i+=0.016;
+    this->setWindowOpacity(i);
+    if(i>=1){
+        player->play();
+        emit stoptimer();
+    }
 }
 
 void hall::addroom(QString ip,QString number){
