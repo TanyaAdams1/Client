@@ -65,7 +65,8 @@ GameWindow::GameWindow(QWidget *parent) :
     frame[10]=ui->frame_11;
     frame[11]=ui->frame_12;
     //   QSound::play ("../source/01.wav");
-    bgm=new QSound("../source/01.wav",this);
+    QString runPath = QCoreApplication::applicationDirPath();
+    bgm=new QSound(runPath+"/01.wav",this);
     bgm->setLoops(-1);
     bgm->play();
     for(int i=0;i<=11;i++)
@@ -304,7 +305,7 @@ void GameWindow::myturn()
     ui->pushButton_17->setEnabled(true);
     ui->textEdit_2->setTextColor(color0);
     ui->textEdit_2->append(tr("轮到你了："));
-    ui->textEdit_2->setTextColor(color0);
+    ui->textEdit_2->setTextColor(color);
 }
 
 void GameWindow::endturn()
@@ -313,6 +314,8 @@ void GameWindow::endturn()
     ui->pushButton->setEnabled(false);
     ui->pushButton_17->setEnabled(false);
     ui->textEdit_2->append(tr("发言结束。"));
+    if(e.isRunning())
+        choice(0);
     emit end();
 }
 
@@ -385,6 +388,8 @@ void GameWindow::gameover()
     ui->textEdit->setEnabled(false);
     ui->pushButton_20->setVisible(false);
     ui->pushButton_14->setVisible(false);
+    if(e.isRunning())
+        choice(0);
 }
 void GameWindow::on_textEdit_textChanged()
 {
@@ -419,7 +424,9 @@ void GameWindow::on_pushButton_16_clicked()
         if(ok)
         {
             QTextStream out(file);
-            out<<ui->textEdit_2->toPlainText();
+            QString text = ui->textEdit_2->toPlainText();
+            text.replace(QString("\n"), QString("\r\n"));
+            out<<text;
             file->close();
             delete file;
         }
